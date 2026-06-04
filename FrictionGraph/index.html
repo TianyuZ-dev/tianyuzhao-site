@@ -15,7 +15,14 @@
   <main class="page">
     <header class="topbar">
       <a class="back-link" href="../index.html#projects">Back to projects</a>
-      <button class="language-toggle" type="button">中文</button>
+      <div class="language-controls" aria-label="Language selector">
+        <button class="language-toggle" type="button" data-lang-target="en">English</button>
+        <button class="language-toggle" type="button" data-lang-target="zh">中文</button>
+        <button class="language-toggle" type="button" data-lang-target="fr">
+          <span>France</span>
+          <small>translated by AI</small>
+        </button>
+      </div>
     </header>
 
     <section class="hero" id="overview">

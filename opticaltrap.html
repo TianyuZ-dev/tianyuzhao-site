@@ -61,7 +61,20 @@
       font-size: 15px;
     }
 
+    .language-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
     .language-toggle {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
       min-height: 38px;
       padding: 0 14px;
       border: 1px solid var(--accent);
@@ -72,11 +85,29 @@
       font: inherit;
       font-size: 14px;
       font-weight: 700;
+      line-height: 1.1;
     }
 
     .language-toggle:hover {
       border-color: var(--ink);
       color: var(--ink);
+    }
+
+    .language-toggle.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .language-toggle small {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .language-toggle.active small {
+      color: rgba(255, 255, 255, 0.82);
     }
 
     .hero {
@@ -335,7 +366,14 @@
   <main class="page">
     <header class="topbar">
       <a class="back-link" href="index.html#projects">Back to projects</a>
-      <button class="language-toggle" type="button">中文</button>
+      <div class="language-controls" aria-label="Language selector">
+        <button class="language-toggle" type="button" data-lang-target="en">English</button>
+        <button class="language-toggle" type="button" data-lang-target="zh">中文</button>
+        <button class="language-toggle" type="button" data-lang-target="fr">
+          <span>France</span>
+          <small>translated by AI</small>
+        </button>
+      </div>
     </header>
 
     <section class="hero">

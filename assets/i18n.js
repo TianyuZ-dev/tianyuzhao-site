@@ -403,10 +403,105 @@
     "What would you like to test or learn about Strata?": "你想测试或了解 Strata 的哪些部分？"
   }));
 
+  const fr = new Map(Object.entries({
+    "Back to projects": "Retour aux projets",
+    "Home": "Accueil",
+    "Projects": "Projets",
+    "Research": "Recherche",
+    "Contact": "Contact",
+    "Description": "Présentation",
+    "Skills": "Compétences",
+    "Computational": "Calcul et programmation",
+    "Experimental": "Expérimental",
+    "Research & Systems": "Recherche et systèmes",
+    "Education & Experience": "Formation et expérience",
+    "Research & Education": "Recherche et formation",
+    "ECE PhD Student": "Doctorant en génie électrique et informatique",
+    "University of Victoria": "Université de Victoria",
+    "Selected research and product systems spanning market structure analysis, official-event intelligence, scientific computing, and execution design.": "Sélection de systèmes de recherche et de produits couvrant l'analyse de la structure de marché, l'intelligence d'événements officiels, le calcul scientifique et la conception de systèmes d'exécution.",
+    "Graph-based FX friction analysis system built with Python, SQL/DuckDB, Dukascopy tick data, Parquet storage, and Tableau dashboards for detecting structural market events.": "Système d'analyse de friction FX fondé sur des graphes, construit avec Python, SQL/DuckDB, des données tick Dukascopy, du stockage Parquet et des tableaux de bord Tableau pour détecter des événements structurels de marché.",
+    "License-safe official-event intelligence pipeline that uses LLM agents to convert central-bank, trade, sanctions, and macro releases into structured exposure vectors, then aligns them with FrictionGraph FX-chain stress in Tableau.": "Pipeline d'intelligence d'événements officiels, sûr du point de vue des licences, qui utilise des agents LLM pour convertir les communiqués de banques centrales, de commerce, de sanctions et de macroéconomie en vecteurs d'exposition structurés, puis les aligne avec le stress des chaînes FX de FrictionGraph dans Tableau.",
+    "Local-first ANAS Sentinel student model that distills the official-event exposure mapper into a Qwen3-8B Ollama model, returning strict ANAS ExposureStruct JSON for downstream warning-system preprocessing.": "Modèle étudiant local-first pour ANAS Sentinel, qui distille le mappeur d'exposition aux événements officiels dans un modèle Qwen3-8B via Ollama et retourne un JSON ANAS ExposureStruct strict pour le prétraitement de systèmes d'alerte en aval.",
+    "Offline-first iOS goal execution system built around the loop Goal -> Task -> Schedule -> Focus -> Progress, with templates, next-action ranking, focus sessions, and weekly review.": "Système iOS d'exécution d'objectifs, offline-first, construit autour de la boucle Goal -> Task -> Schedule -> Focus -> Progress, avec modèles, classement des prochaines actions, sessions de concentration et revue hebdomadaire.",
+    "Native C++/Qt desktop application for optical trapping data analysis, built for loading experimental recordings, visualizing signals, converting raw files, and running PSD, ACF, PDF, and transition-fitting workflows.": "Application de bureau native C++/Qt pour l'analyse de données de piégeage optique, conçue pour charger des enregistrements expérimentaux, visualiser des signaux, convertir des fichiers bruts et exécuter des workflows PSD, ACF, PDF et d'ajustement de transitions.",
+    "Dashboard": "Tableau de bord",
+    "Case study": "Étude de cas",
+    "JPY case study": "Étude de cas JPY",
+    "JPY Case Study": "Étude de cas JPY",
+    "Pipeline": "Pipeline",
+    "Model": "Modèle",
+    "Evaluation": "Évaluation",
+    "Run Guide": "Guide d'exécution",
+    "Run guide": "Guide d'exécution",
+    "System design": "Conception du système",
+    "Workflow": "Workflow",
+    "Status": "Statut",
+    "Download for macOS": "Télécharger pour macOS",
+    "Download for Windows": "Télécharger pour Windows",
+    "Representative publications": "Publications représentatives",
+    "Data Processing": "Traitement des données",
+    "Machine Learning": "Apprentissage automatique",
+    "Neural Network": "Réseau neuronal",
+    "Email": "E-mail",
+    "Location": "Localisation",
+    "Official Event Intelligence Pipeline": "Pipeline d'intelligence d'événements officiels",
+    "Local Exposure Mapper": "Mappeur d'exposition local",
+    "Market Structure Research Prototype": "Prototype de recherche sur la structure de marché",
+    "AI Execution System": "Système d'exécution IA",
+    "TestFlight Access": "Accès TestFlight",
+    "Beta Access": "Accès bêta",
+    "Request TestFlight access": "Demander un accès TestFlight",
+    "Name": "Nom",
+    "Note": "Note",
+    "Send request": "Envoyer la demande",
+    "This static form opens your email client with the request details.": "Ce formulaire statique ouvre votre client e-mail avec les détails de la demande.",
+    "System Design": "Conception du système",
+    "Screenshots": "Captures d'écran",
+    "Key Screens": "Écrans clés",
+    "Technical Design": "Conception technique",
+    "Main Features": "Fonctionnalités principales",
+    "Supported Data Formats": "Formats de données pris en charge",
+    "Format": "Format",
+    "Output": "Sortie",
+    "Analysis Functions": "Fonctions d'analyse",
+    "Recommended Workflow": "Workflow recommandé",
+    "Notes": "Notes",
+    "Future Direction": "Orientation future",
+    "Next Direction": "Prochaine direction",
+    "The problem": "Le problème",
+    "The idea": "L'idée",
+    "Method": "Méthode",
+    "Findings": "Résultats",
+    "Interactive Dashboard": "Tableau de bord interactif",
+    "Guardrails": "Garde-fous",
+    "Boundaries": "Limites",
+    "Deployment": "Déploiement",
+    "Training": "Entraînement",
+    "Platform": "Plateforme",
+    "I am a PhD student in Electrical and Computer Engineering at the University of Victoria, working on optical trapping systems and nanoscale biophysics. My research combines experimental biophysics, signal processing, and computational analysis to study molecular and extracellular-vesicle behavior in optical trapping experiments. I also developed OpticalTrap, a C++/Qt desktop application for visualizing, converting, and analyzing optical trapping data.": "Je suis doctorant en génie électrique et informatique à l'Université de Victoria. Je travaille sur les systèmes de piégeage optique et la biophysique à l'échelle nanométrique. Ma recherche combine biophysique expérimentale, traitement du signal et analyse computationnelle pour étudier le comportement moléculaire et celui des vésicules extracellulaires dans les expériences de piégeage optique. J'ai également développé <a href=\"opticaltrap.html\">OpticalTrap</a>, une application de bureau C++/Qt pour visualiser, convertir et analyser les données de piégeage optique.",
+    "Beyond research, I build applied computational systems for quantitative analysis, information processing, and personal productivity. My recent projects include FrictionGraph, a cross-market anomaly and friction detection system for financial data; ANAS, a structured official-event alignment pipeline; ANAS-Local, a local Qwen3-8B exposure mapper for ANAS Sentinel; and Strata, an offline-first iOS goal execution app currently in TestFlight.": "Au-delà de la recherche, je construis des systèmes computationnels appliqués pour l'analyse quantitative, le traitement de l'information et la productivité personnelle. Mes projets récents incluent <a href=\"FrictionGraph/index.html\">FrictionGraph</a>, un système de détection d'anomalies et de friction inter-marchés pour les données financières ; <a href=\"ANAS/index.html\">ANAS</a>, un pipeline structuré d'alignement d'événements officiels ; <a href=\"ANAS-Local/index.html\">ANAS-Local</a>, un mappeur local d'exposition Qwen3-8B pour ANAS Sentinel ; et <a href=\"Strata/index.html\">Strata</a>, une application iOS offline-first d'exécution d'objectifs actuellement en TestFlight.",
+    "My technical interests span scientific software, signal and data processing, quantitative systems, market microstructure, machine learning applications, and reliable data infrastructure. I enjoy designing systems that connect theory, computation, and real-world decision making across research and engineering domains.": "Mes intérêts techniques couvrent les logiciels scientifiques, le traitement du signal et des données, les systèmes quantitatifs, la microstructure de marché, les applications d'apprentissage automatique et les infrastructures de données fiables. J'aime concevoir des systèmes qui relient théorie, calcul et prise de décision réelle dans les domaines de la recherche et de l'ingénierie.",
+    "Outside of work, I enjoy coffee brewing, photography, and long-form discussions on technology, economics, and the future of AI systems.": "En dehors du travail, j'aime préparer du café, faire de la photographie et avoir de longues discussions sur la technologie, l'économie et l'avenir des systèmes d'IA.",
+    "ANAS is a license-safe financial event intelligence system that turns official public documents into structured category and currency exposure vectors, then aligns those vectors with FrictionGraph's daily FX-chain stress outputs.": "ANAS est un système d'intelligence d'événements financiers, sûr du point de vue des licences, qui transforme des documents publics officiels en vecteurs structurés d'exposition par catégorie et devise, puis les aligne avec les sorties quotidiennes de stress des chaînes FX de FrictionGraph.",
+    "ANAS-Local is the local student model for ANAS Sentinel: a Qwen3-8B exposure mapper that runs through Ollama on Mac and converts event text plus metadata into strict ANAS ExposureStruct JSON.": "ANAS-Local est le modèle étudiant local d'ANAS Sentinel : un mappeur d'exposition Qwen3-8B exécuté avec Ollama sur Mac, qui convertit le texte d'événement et les métadonnées en JSON ANAS ExposureStruct strict.",
+    "Strata V2.0 is an offline-first iOS goal execution system that helps users move from intention to scheduled action, focused execution, progress tracking, and lightweight adjustment.": "Strata V2.0 est un système iOS offline-first d'exécution d'objectifs qui aide les utilisateurs à passer de l'intention à l'action planifiée, à l'exécution concentrée, au suivi des progrès et à l'ajustement léger.",
+    "Native C++/Qt desktop software for optical trapping data analysis, designed to replace slower MATLAB-style workflows with an integrated interface for data conversion, visualization, and analysis.": "Logiciel de bureau natif C++/Qt pour l'analyse des données de piégeage optique, conçu pour remplacer des workflows de type MATLAB plus lents par une interface intégrée de conversion, visualisation et analyse des données."
+  }));
+
+  const placeholderFr = new Map(Object.entries({
+    "Your name": "Votre nom",
+    "your@email.com": "votre@email.com",
+    "What would you like to test or learn about Strata?": "Que souhaitez-vous tester ou apprendre sur Strata ?"
+  }));
+
+  const dictionaries = { zh, fr };
+  const placeholderDictionaries = { zh: placeholderZh, fr: placeholderFr };
+
   const textSelector = "a, button, h1, h2, h3, p, span, strong, small, figcaption, li, th, td, label, footer";
   const SKIP_SELECTOR = "script, style, svg, code, iframe, input, textarea";
 
   const normalize = (value) => value.replace(/\s+/g, " ").trim();
+  const translateValue = (value, lang) => dictionaries[lang]?.get(value) || value;
 
   function translateElement(element, lang) {
     if (element.matches(SKIP_SELECTOR) || element.closest(SKIP_SELECTOR)) return;
@@ -414,14 +509,16 @@
     const original = element.dataset.i18nOriginal || normalize(element.textContent);
     if (!original) return;
     element.dataset.i18nOriginal = original;
-    element.textContent = lang === "zh" ? zh.get(original) || original : original;
+    element.textContent = lang === "en" ? original : translateValue(original, lang);
   }
 
   function translateHtmlBlock(element, lang) {
     const original = element.dataset.i18nOriginalHtml || element.innerHTML;
     element.dataset.i18nOriginalHtml = original;
-    const normalized = normalize(element.textContent);
-    element.innerHTML = lang === "zh" ? zh.get(normalized) || original : original;
+    const source = document.createElement("div");
+    source.innerHTML = original;
+    const normalized = normalize(source.textContent);
+    element.innerHTML = lang === "en" ? original : dictionaries[lang]?.get(normalized) || original;
   }
 
   function translateTextNodes(lang) {
@@ -441,7 +538,7 @@
       if (!original) return;
       node.__i18nOriginal = original;
 
-      const replacement = lang === "zh" ? zh.get(original) || original : original;
+      const replacement = lang === "en" ? original : translateValue(original, lang);
       const leading = raw.match(/^\s*/)?.[0] || "";
       const trailing = raw.match(/\s*$/)?.[0] || "";
       node.nodeValue = `${leading}${replacement}${trailing}`;
@@ -449,18 +546,20 @@
   }
 
   function applyLanguage(lang) {
-    document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
+    document.documentElement.lang = lang === "zh" ? "zh-Hans" : lang;
     document.querySelectorAll("[data-i18n-html]").forEach((element) => translateHtmlBlock(element, lang));
     document.querySelectorAll(textSelector).forEach((element) => translateElement(element, lang));
     translateTextNodes(lang);
     document.querySelectorAll("input[placeholder], textarea[placeholder]").forEach((element) => {
       const original = element.dataset.i18nPlaceholder || element.getAttribute("placeholder");
       element.dataset.i18nPlaceholder = original;
-      element.setAttribute("placeholder", lang === "zh" ? placeholderZh.get(original) || original : original);
+      element.setAttribute("placeholder", lang === "en" ? original : placeholderDictionaries[lang]?.get(original) || original);
     });
     document.querySelectorAll(".language-toggle").forEach((button) => {
-      button.textContent = lang === "zh" ? "English" : "中文";
-      button.setAttribute("aria-label", lang === "zh" ? "Switch language to English" : "切换到中文");
+      const target = button.dataset.langTarget || "zh";
+      const isActive = target === lang;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-pressed", isActive ? "true" : "false");
     });
   }
 
@@ -472,13 +571,18 @@
   function init() {
     const params = new URLSearchParams(window.location.search);
     const requested = params.get("lang");
-    if (requested === "en" || requested === "zh") {
+    if (requested === "en" || requested === "zh" || requested === "fr") {
       localStorage.setItem("site-language", requested);
     }
     const saved = localStorage.getItem("site-language") || "en";
     applyLanguage(saved);
     document.querySelectorAll(".language-toggle").forEach((button) => {
       button.addEventListener("click", () => {
+        const target = button.dataset.langTarget;
+        if (target === "en" || target === "zh" || target === "fr") {
+          setLanguage(target);
+          return;
+        }
         const current = localStorage.getItem("site-language") || "en";
         setLanguage(current === "zh" ? "en" : "zh");
       });
