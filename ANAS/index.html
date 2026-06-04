@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANAS | Tianyu Zhao</title>
+  <meta
+    name="description"
+    content="ANAS project presentation: license-safe official-event intelligence, LLM exposure extraction, Tableau dashboards, and FrictionGraph FX-chain alignment."
+  />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="back-link" href="../index.html#projects">Back to projects</a>
+      <button class="language-toggle" type="button">中文</button>
+    </header>
+
+    <section class="hero" id="overview">
+      <div class="hero-copy">
+        <p class="eyebrow">Official Event Intelligence Pipeline</p>
+        <div class="brand-lockup">
+          <img class="hero-logo" src="Logo.png" alt="ANAS logo" />
+          <h1>ANAS</h1>
+        </div>
+        <p class="lead">
+          ANAS is a license-safe financial event intelligence system that turns
+          official public documents into structured category and currency exposure
+          vectors, then aligns those vectors with FrictionGraph's daily FX-chain
+          stress outputs.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/TianyuZ-dev/ANAS" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="button" href="#method">Pipeline</a>
+          <a class="button" href="#jpy-case">JPY Case Study</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Project summary">
+        <div class="stat">
+          <span>Source Governance</span>
+          <strong>Official-only</strong>
+          <p>Uses license-safe government and central-bank documents instead of copyrighted news full text.</p>
+        </div>
+        <div class="stat">
+          <span>LLM System</span>
+          <strong>Agent pipeline</strong>
+          <p>Together AI hosts the extraction and judge calls that convert cleaned documents into strict JSON exposure structs.</p>
+        </div>
+        <div class="stat">
+          <span>Market Alignment</span>
+          <strong>FrictionGraph</strong>
+          <p>Event exposures are aligned with daily FX triangular-chain stress, RMSD, and JPY case windows.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section feature-band" aria-label="Research problem">
+      <article>
+        <h2>The problem</h2>
+        <p>
+          News-driven market projects often rely on copyrighted articles, noisy
+          headlines, or unverifiable summaries. ANAS reframes the task around
+          official documents: policy releases, central-bank communication,
+          sanctions, trade actions, energy reports, and macro announcements.
+        </p>
+      </article>
+      <article>
+        <h2>The idea</h2>
+        <p>
+          Instead of asking a model to predict prices, ANAS asks a narrower and
+          auditable question: what category, country, and currency exposures does
+          this official event create, and do those exposures overlap nearby
+          FrictionGraph chain stress?
+        </p>
+      </article>
+    </section>
+
+    <section class="section" id="method">
+      <div class="section-header">
+        <h2>Pipeline</h2>
+        <p>From official documents to Tableau-ready event intelligence.</p>
+      </div>
+      <div class="pipeline-flow" aria-label="ANAS structured pipeline">
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">01</span>
+          <h3>Official Sources</h3>
+          <p>Fed, USTR, Treasury/OFAC, BOJ, Japan MOF, macro and policy releases.</p>
+          <div class="pipeline-detail">
+            Source selection stays license-safe by using public official documents
+            instead of copyrighted news full text.
+          </div>
+        </article>
+
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">02</span>
+          <h3>Document Store</h3>
+          <p>Clean text, word-count validation, source metadata, and content hashes.</p>
+          <div class="pipeline-detail">
+            Each record keeps enough provenance to be audited later while raw
+            document handling remains local and controlled.
+          </div>
+        </article>
+
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">03</span>
+          <h3>LLM Extractor</h3>
+          <p>Together AI API calls return category, country, and currency exposure vectors in strict JSON.</p>
+          <div class="pipeline-detail">
+            Together AI provides the online LLM endpoint for extraction. The model performs
+            document-to-structure conversion rather than price prediction, producing
+            relevance, impact, direction, and rationale fields.
+          </div>
+        </article>
+
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">04</span>
+          <h3>Judge Gate</h3>
+          <p>Reject malformed, weak, duplicate, or out-of-universe exposures.</p>
+          <div class="pipeline-detail">
+            A second validation layer keeps noisy outputs out of the accepted
+            event dataset before dashboard export.
+          </div>
+        </article>
+
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">05</span>
+          <h3>Alignment Export</h3>
+          <p>Join accepted events with FrictionGraph RMSD and Tableau views.</p>
+          <div class="pipeline-detail">
+            The output supports explanatory inspection of event exposures near
+            FX-chain stress windows, not causal trading claims.
+          </div>
+        </article>
+      </div>
+      <div class="metric-grid" aria-label="Current run metrics">
+        <article class="metric"><span>General documents</span><strong>100</strong></article>
+        <article class="metric"><span>Accepted exposures</span><strong>97</strong></article>
+        <article class="metric"><span>JPY case events</span><strong>9</strong></article>
+        <article class="metric"><span>LLM provider</span><strong>Together AI</strong></article>
+        <article class="metric"><span>Chain universe</span><strong>32</strong></article>
+      </div>
+    </section>
+
+    <section class="section" id="alignment-dashboard">
+      <div class="section-header">
+        <h2>General Alignment Dashboard</h2>
+        <p>Broad official-event waterfall and impact/relevance alignment ranking.</p>
+      </div>
+
+      <div class="dashboard-description" aria-label="How to read the general alignment dashboard">
+        <article>
+          <strong>What this dashboard shows</strong>
+          <p>Each point is an official public event that ANAS converted into structured category and currency exposure. The two waterfall views show where those events fall across time, while color and size encode the model-estimated impact and score.</p>
+        </article>
+        <article>
+          <strong>How to read the rankings</strong>
+          <p>The lower bars rank events by their overlap with nearby FrictionGraph FX-chain stress. Impact ranking favors stronger market-shock interpretation; relevance ranking favors semantic closeness even when the immediate shock is small.</p>
+        </article>
+        <article>
+          <strong>Why it matters</strong>
+          <p>This view is not a price prediction chart. It is an audit layer: it shows whether official macro, trade, sanctions, energy, and policy events create exposure patterns that line up with observable FX stress windows.</p>
+        </article>
+      </div>
+
+      <div class="dashboard-frame">
+        <div class="dashboard-frame-header">
+          <div>
+            <strong>ANAS Alignment</strong>
+            <span>Tableau Public embedded view</span>
+          </div>
+          <div class="status-pills">
+            <span>2024-2025</span>
+            <span>97 accepted events</span>
+            <span>Impact + relevance</span>
+          </div>
+        </div>
+        <div class="dashboard-canvas">
+          <div class="tableauPlaceholder" id="viz1780074022948" style="position: relative">
+            <noscript>
+              <a href="https://public.tableau.com/views/ANAS_alignment/1"><img alt="ANAS alignment dashboard" src="https://public.tableau.com/static/images/AN/ANAS_alignment/1/1_rss.png" style="border: none" /></a>
+            </noscript>
+            <object class="tableauViz" style="display:none;">
+              <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+              <param name="embed_code_version" value="3" />
+              <param name="site_root" value="" />
+              <param name="name" value="ANAS_alignment/1" />
+              <param name="tabs" value="no" />
+              <param name="toolbar" value="yes" />
+              <param name="static_image" value="https://public.tableau.com/static/images/AN/ANAS_alignment/1/1.png" />
+              <param name="animate_transition" value="yes" />
+              <param name="display_static_image" value="yes" />
+              <param name="display_spinner" value="yes" />
+              <param name="display_overlay" value="yes" />
+              <param name="display_count" value="yes" />
+              <param name="language" value="en-US" />
+            </object>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section case-section" id="jpy-case">
+      <div class="section-header">
+        <h2>JPY Stress Case Study</h2>
+        <p>Official BOJ/MOF events around a FrictionGraph JPY-chain stress window.</p>
+      </div>
+      <ol class="case-process">
+        <li>
+          <div>
+            <strong>Market-side signal</strong>
+            <small>2025-11-28 to 2025-12-01</small>
+          </div>
+          <span>
+            FrictionGraph shows a local JPY-centered stress window. The largest
+            standalone RMSD chain on 2025-12-01 is <span class="code-pill">EUR -> SGD -> JPY -> EUR</span>.
+          </span>
+        </li>
+        <li>
+          <div>
+            <strong>Official-event context</strong>
+            <small>BOJ and Japan MOF</small>
+          </div>
+          <span>
+            ANAS identifies official BOJ speeches, Japan MOF intervention disclosures,
+            and JGB/reserve documents as the most relevant event neighborhood for the
+            JPY stress window.
+          </span>
+        </li>
+        <li>
+          <div>
+            <strong>Relevance vs impact</strong>
+            <small>Why the split matters</small>
+          </div>
+          <span>
+            The MOF FX intervention disclosure is highly relevant to JPY but has
+            zero immediate impact because the disclosed intervention amount is JPY 0.
+            ANAS preserves this distinction instead of forcing a false shock narrative.
+          </span>
+        </li>
+      </ol>
+
+      <div class="dashboard-description" aria-label="How to read the JPY case study dashboard">
+        <article>
+          <strong>What the case isolates</strong>
+          <p>The dashboard focuses on the 2025-11-28 to 2025-12-01 JPY stress window. The timeline separates the ordinary context period from the focus days so the reader can see the local jump instead of a full-year blur.</p>
+        </article>
+        <article>
+          <strong>What the chain bars mean</strong>
+          <p>The top-chain panel ranks the FX triangular chains contributing the most RMSD on the focus days. JPY appears inside the leading chains, which makes the official Japan-related event neighborhood worth inspecting.</p>
+        </article>
+        <article>
+          <strong>What the event ranking proves</strong>
+          <p>The final ranking connects official events to the JPY stress window through ANAS exposure scores. BOJ and MOF documents rise to the top, while Fed context remains visible as a broader macro backdrop.</p>
+        </article>
+      </div>
+
+      <div class="dashboard-frame">
+        <div class="dashboard-frame-header">
+          <div>
+            <strong>JPY Stress Case Study</strong>
+            <span>Tableau Public embedded view</span>
+          </div>
+          <div class="status-pills">
+            <span>BOJ / MOF / Fed</span>
+            <span>JPY chain stress</span>
+            <span class="warn">explanatory, not causal</span>
+          </div>
+        </div>
+        <div class="dashboard-canvas">
+          <div class="tableauPlaceholder" id="viz1780074077968" style="position: relative">
+            <noscript>
+              <a href="https://public.tableau.com/views/JPYStressCaseStudy/1"><img alt="JPY stress case study dashboard" src="https://public.tableau.com/static/images/JP/JPYStressCaseStudy/1/1_rss.png" style="border: none" /></a>
+            </noscript>
+            <object class="tableauViz" style="display:none;">
+              <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+              <param name="embed_code_version" value="3" />
+              <param name="site_root" value="" />
+              <param name="name" value="JPYStressCaseStudy/1" />
+              <param name="tabs" value="no" />
+              <param name="toolbar" value="yes" />
+              <param name="static_image" value="https://public.tableau.com/static/images/JP/JPYStressCaseStudy/1/1.png" />
+              <param name="animate_transition" value="yes" />
+              <param name="display_static_image" value="yes" />
+              <param name="display_spinner" value="yes" />
+              <param name="display_overlay" value="yes" />
+              <param name="display_count" value="yes" />
+              <param name="language" value="en-US" />
+            </object>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quality">
+      <div class="section-header">
+        <h2>Guardrails</h2>
+        <p>ANAS is designed to be portfolio-safe and auditable.</p>
+      </div>
+      <div class="finding-grid">
+        <article>
+          <p class="tag">Copyright safety</p>
+          <h3>Official documents only.</h3>
+          <p>
+            The public workflow avoids storing copyrighted news article full text.
+            Training candidates come from official public sources and derived exposure structs.
+          </p>
+        </article>
+        <article>
+          <p class="tag">Schema control</p>
+          <h3>Strict currency universe.</h3>
+          <p>
+            The current FrictionGraph alignment space is CAD, CHF, EUR, JPY, SGD,
+            USD, with CNH and XAU as event proxies. Out-of-universe outputs are guarded.
+          </p>
+        </article>
+        <article>
+          <p class="tag">Interpretability</p>
+          <h3>No prediction claim.</h3>
+          <p>
+            Dashboards show explanatory alignment between official events and market
+            structure stress. They are not presented as trading signals or causal proof.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section future-section" id="future">
+      <div class="section-header">
+        <h2>Future Direction</h2>
+        <p>From portfolio demo to trainable event-intelligence system.</p>
+      </div>
+      <div class="future-copy">
+        <p>
+          The next step is to expand the official-event corpus from hundreds to
+          thousands of documents while preserving the same source policy, hashing,
+          validation, and judge pipeline. The accepted and rejected records become
+          supervised material for a smaller task-specific model.
+        </p>
+        <p>
+          ANAS and FrictionGraph are designed to complement each other. FrictionGraph
+          detects when FX market structure becomes stressed; ANAS helps explain which
+          official event exposures belong near that stress window.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      ANAS is part of Tianyu Zhao's research and systems portfolio.
+    </footer>
+  </main>
+
+  <script src="assets/main.js"></script>
+  <script src="../assets/i18n.js"></script>
+</body>
+</html>

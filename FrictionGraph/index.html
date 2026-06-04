@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FrictionGraph | Tianyu Zhao</title>
+  <meta
+    name="description"
+    content="FrictionGraph project presentation: graph-based FX friction analysis, anomaly detection, and Tableau dashboard exploration."
+  />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="back-link" href="../index.html#projects">Back to projects</a>
+      <button class="language-toggle" type="button">中文</button>
+    </header>
+
+    <section class="hero" id="overview">
+      <div class="hero-copy">
+        <p class="eyebrow">Market Structure Research Prototype</p>
+        <h1>FrictionGraph</h1>
+        <p class="lead">
+          A graph-based FX research system for detecting structural market imbalance
+          from triangular currency friction. The project reconstructs latest-known
+          tick states, scores directed currency loops, and turns daily chain-width
+          behavior into interpretable anomaly cases.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/TianyuZ-dev/FrictionGraph?tab=readme-ov-file" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="button" href="#dashboard">View Dashboard</a>
+          <a class="button" href="#cases">Read Cases</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Project summary">
+        <div class="stat">
+          <span>Data Engineering</span>
+          <strong>Python + SQL</strong>
+          <p>Built a reproducible pipeline for tick ingestion, Parquet storage, DuckDB querying, and CSV feature export.</p>
+        </div>
+        <div class="stat">
+          <span>Market Data</span>
+          <strong>Dukascopy API</strong>
+          <p>Collected open FX tick data and reconstructed latest-known market states for graph analysis.</p>
+        </div>
+        <div class="stat">
+          <span>Visualization</span>
+          <strong>Tableau</strong>
+          <p>Designed an interactive dashboard for daily width, chain decomposition, and case-study exploration.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section feature-band" aria-label="Research summary">
+      <article>
+        <h2>What it measures</h2>
+        <p>
+          FrictionGraph treats currency pairs as directed tradeable graph edges.
+          For each analysis minute, it finds the latest quote before that time,
+          constructs triangular loops, and measures how far those loops drift
+          from internal consistency.
+        </p>
+      </article>
+      <article>
+        <h2>Why it matters</h2>
+        <p>
+          A single spike can be noise. A day where multiple chains widen together
+          is more informative. The system focuses on chain-level structure, which
+          helps separate stale quotes, holiday liquidity regimes, and policy-driven
+          repricing events.
+        </p>
+      </article>
+    </section>
+
+    <section class="section" id="method">
+      <div class="section-header">
+        <h2>Method</h2>
+        <p>From raw tick data to daily structural width.</p>
+      </div>
+      <ol class="process">
+        <li>
+          <strong>Ingest raw Dukascopy ticks</strong>
+          <span>Download bid/ask tick data by instrument and save chunked Parquet files.</span>
+        </li>
+        <li>
+          <strong>Prepare DuckDB views</strong>
+          <span>Expose the Parquet data lake as a queryable <code>fx_ticks</code> view.</span>
+        </li>
+        <li>
+          <strong>Reconstruct latest-known states</strong>
+          <span>At every analysis minute, select the latest available quote for each instrument.</span>
+        </li>
+        <li>
+          <strong>Score directed triangular chains</strong>
+          <span>Build currency graph loops and normalize scores into friction form.</span>
+        </li>
+        <li>
+          <strong>Aggregate daily width</strong>
+          <span>Export <code>sum_rmsd</code>, <code>gap</code>, and chain-day features for Tableau.</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" id="findings">
+      <div class="section-header">
+        <h2>Findings</h2>
+        <p>Two recurring classes emerged after the 2025 extension.</p>
+      </div>
+      <div class="finding-grid">
+        <article>
+          <p class="tag">Holiday liquidity regime</p>
+          <h3>Good Friday repeats the same structural pattern.</h3>
+          <p>
+            The 2024-03-29 and 2025-04-18 peaks both land on Good Friday and both
+            show a CHF-SGD-centered chain block. This suggests a recurring holiday
+            liquidity signature rather than a one-off anomaly.
+          </p>
+        </article>
+        <article>
+          <p class="tag">Policy repricing regime</p>
+          <h3>JPY-centered events behave differently.</h3>
+          <p>
+            The 2025-12-01 peak is driven by JPY-linked chain volatility, with SGD,
+            CHF, CAD, EUR, and USD rotating around the repricing event. It is a
+            broad intraday instability case, not simply a holiday pattern.
+          </p>
+        </article>
+        <article>
+          <p class="tag">Model interpretation</p>
+          <h3>Top RMSD chain is the right event lens.</h3>
+          <p>
+            Since the overall dashboard is centered on daily <code>sum_rmsd</code>,
+            the explanatory route for a selected day should be the highest-RMSD
+            chain rather than the most negative mean-friction chain.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="dashboard">
+      <div class="section-header">
+        <h2>Interactive Dashboard</h2>
+        <p>Embedded Tableau view for exploring daily width and chain decomposition.</p>
+      </div>
+
+      <div class="dashboard-frame">
+        <div class="dashboard-frame-header">
+          <div>
+            <strong>FrictionGraph Explorer</strong>
+            <span>Tableau Public embedded view</span>
+          </div>
+          <div class="status-pills">
+            <span>2024-2025</span>
+            <span>Top RMSD workflow</span>
+          </div>
+        </div>
+        <div class="dashboard-canvas">
+          <div class="tableauPlaceholder" id="viz1779831038454" style="position: relative">
+            <noscript>
+              <a href="https://public.tableau.com/views/FrictionGraph_1/1_1">
+                <img alt="FrictionGraph Tableau dashboard" src="https://public.tableau.com/static/images/Fr/FrictionGraph_1/1_1/1_rss.png" style="border: none">
+              </a>
+            </noscript>
+            <object class="tableauViz" style="display:none;">
+              <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F">
+              <param name="embed_code_version" value="3">
+              <param name="site_root" value="">
+              <param name="name" value="FrictionGraph_1/1_1">
+              <param name="tabs" value="no">
+              <param name="toolbar" value="yes">
+              <param name="static_image" value="https://public.tableau.com/static/images/Fr/FrictionGraph_1/1_1/1.png">
+              <param name="animate_transition" value="yes">
+              <param name="display_static_image" value="yes">
+              <param name="display_spinner" value="yes">
+              <param name="display_overlay" value="yes">
+              <param name="display_count" value="yes">
+              <param name="language" value="en-US">
+              <param name="filter" value="publish=yes">
+            </object>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section case-section" id="cases">
+      <div class="section-header">
+        <h2>Case Study</h2>
+        <p>
+          Understand market structure, not arbitrage.
+        </p>
+      </div>
+      <ol class="case-process">
+        <li>
+          <div>
+            <strong>Christmas liquidity peaks</strong>
+            <small>2024-12-25 / 2025-12-25</small>
+          </div>
+          <span>
+            Christmas produces the largest daily width peak in both 2024 and
+            2025. The repetition suggests a holiday liquidity regime rather than
+            a single news-driven anomaly.
+          </span>
+        </li>
+        <li>
+          <div>
+            <strong>Good Friday overlap</strong>
+            <small>2024-03-29 / 2025-04-18</small>
+          </div>
+          <span>
+            The 2024-03-29 and 2025-04-18 Good Friday peaks both appear in nearly
+            the same region of the <code>Width vs Chain Gap</code> view, with a
+            similar CHF-SGD-centered structure.
+          </span>
+        </li>
+        <li>
+          <div>
+            <strong>JPY policy repricing</strong>
+            <small>2025-11-28 - 2025-12-01</small>
+          </div>
+          <span>
+            Unlike the holiday cases, the 2025-12-01 event appears in 2025 but
+            not in 2024, which helps separate it from recurring calendar effects.
+            The chain structure is JPY-centered, consistent with market reaction
+            to Bank of Japan Governor Kazuo Ueda signaling that a December rate
+            hike would be considered.
+            <a
+              href="https://www.investing.com/news/economy-news/boj-to-consider-pros-and-cons-of-rate-increase-at-december-meeting-ueda-says-4382652"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Reuters coverage</a>.
+          </span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section future-section" id="future">
+      <div class="section-header">
+        <h2>Future Direction</h2>
+        <p>From daily FX friction research to broader market intelligence.</p>
+      </div>
+      <div class="future-copy">
+        <p>
+          FrictionGraph started from a simple research idea: if market structure
+          becomes stressed, the inconsistency should appear somewhere in the
+          graph before it becomes a clean narrative. Using open Dukascopy FX tick
+          data and daily-resolution features, the project already surfaced a
+          real event pattern, including recurring holiday liquidity regimes and
+          a JPY-centered policy repricing episode.
+        </p>
+        <p>
+          The next version can improve in two directions. First, the data layer
+          can expand beyond FX into futures, crypto, and equity markets, so the
+          graph captures cross-asset stress instead of currency loops alone.
+          Second, the monitoring frequency can move from daily analysis toward
+          millisecond-level tracking, making the system closer to a real-time
+          market structure monitor.
+        </p>
+        <p>
+          In practice, this system can act as an event filter. Event-driven
+          strategies often start from news, but the world produces too many
+          headlines to treat every story as actionable. FrictionGraph offers a
+          market-side screen: it helps identify which events actually disturb
+          the trading graph. The same idea can also support risk monitoring by
+          measuring whether stress is concentrating around a region or asset
+          group, giving investors another signal for capital withdrawal,
+          reallocation, or entry timing.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      FrictionGraph is part of Tianyu Zhao's research and systems portfolio.
+    </footer>
+  </main>
+
+  <script src="assets/main.js"></script>
+  <script src="../assets/i18n.js"></script>
+</body>
+</html>

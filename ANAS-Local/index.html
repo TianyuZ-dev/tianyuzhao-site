@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANAS-Local | Tianyu Zhao</title>
+  <meta
+    name="description"
+    content="ANAS-Local project presentation: local-first Qwen3-8B exposure mapper, Ollama deployment, GGUF release, and schema-validated ANAS ExposureStruct output."
+  />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="back-link" href="../index.html#projects">Back to projects</a>
+      <button class="language-toggle" type="button">中文</button>
+    </header>
+
+    <section class="hero" id="overview">
+      <div class="hero-copy">
+        <p class="eyebrow">Local Exposure Mapper</p>
+        <div class="brand-lockup">
+          <img class="hero-logo" src="Logo.png" alt="ANAS-Local logo" />
+          <h1>ANAS-Local</h1>
+        </div>
+        <p class="lead">
+          ANAS-Local is the local student model for ANAS Sentinel: a Qwen3-8B
+          exposure mapper that runs through Ollama on Mac and converts event text
+          plus metadata into strict ANAS ExposureStruct JSON.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/TianyuZ-dev/ANAS_Sentinel" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="button" href="#model">Model</a>
+          <a class="button" href="#evaluation">Evaluation</a>
+          <a class="button" href="#run-guide">Run Guide</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Project summary">
+        <div class="stat">
+          <span>Local Engine</span>
+          <strong>Ollama</strong>
+          <p>Packaged as a GGUF Q4_K_M model for local Mac inference.</p>
+        </div>
+        <div class="stat">
+          <span>Student Model</span>
+          <strong>Qwen3-8B</strong>
+          <p>Distilled from the larger ANAS exposure-mapping workflow with QLoRA and Unsloth.</p>
+        </div>
+        <div class="stat">
+          <span>Core Task</span>
+          <strong>JSON</strong>
+          <p>Maps official or private event text into ANAS ExposureStruct output for downstream warning engines.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section feature-band" aria-label="Research problem">
+      <article>
+        <h2>The problem</h2>
+        <p>
+          The original ANAS pipeline can use hosted large-model calls, but warning
+          systems often need privacy, controllable latency, and reproducible local
+          preprocessing. Sending every document to an external endpoint is not
+          always the right operating mode.
+        </p>
+      </article>
+      <article>
+        <h2>The idea</h2>
+        <p>
+          ANAS-Local narrows the model's job to one auditable transformation:
+          event text and metadata in, schema-controlled exposure JSON out. It is
+          a component for risk-warning infrastructure, not a trading bot or a
+          market-prediction system.
+        </p>
+      </article>
+    </section>
+
+    <section class="section" id="model">
+      <div class="section-header">
+        <h2>Model Pipeline</h2>
+        <p>From ANAS exposure records to a local Ollama model.</p>
+      </div>
+      <div class="pipeline-flow" aria-label="ANAS-Local training and release pipeline">
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">01</span>
+          <h3>ANAS Outputs</h3>
+          <p>Use accepted exposure structs from the larger ANAS event-intelligence workflow.</p>
+          <div class="pipeline-detail">Training data starts from structured ANAS v1 outputs rather than raw prediction labels.</div>
+        </article>
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">02</span>
+          <h3>SFT Dataset</h3>
+          <p>Build prompt-completion examples for ExposureStruct generation.</p>
+          <div class="pipeline-detail">The dataset teaches the student model the ANAS schema, category universe, currency proxies, and rationale style.</div>
+        </article>
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">03</span>
+          <h3>QLoRA Train</h3>
+          <p>Fine-tune unsloth/Qwen3-8B with Unsloth on the exposure-mapping task.</p>
+          <div class="pipeline-detail">The LoRA adapter captures the narrow event-to-exposure behavior without retraining a full base model.</div>
+        </article>
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">04</span>
+          <h3>GGUF Export</h3>
+          <p>Export the local Mac artifact as Q4_K_M GGUF for Ollama.</p>
+          <div class="pipeline-detail">The release package includes split GGUF archives and SHA256 checksums for reproducible installation.</div>
+        </article>
+        <article class="pipeline-card" tabindex="0">
+          <span class="pipeline-step">05</span>
+          <h3>Guarded Eval</h3>
+          <p>Evaluate JSON parseability, schema validity, repair rate, and exposure overlap.</p>
+          <div class="pipeline-detail">A schema-repair guard keeps malformed local outputs from entering downstream warning logic.</div>
+        </article>
+      </div>
+      <div class="metric-grid" aria-label="Phase 1 local evaluation metrics">
+        <article class="metric"><span>Evaluation rows</span><strong>493</strong></article>
+        <article class="metric"><span>Parse rate</span><strong>100%</strong></article>
+        <article class="metric"><span>Schema valid</span><strong>100%</strong></article>
+        <article class="metric"><span>Category overlap</span><strong>0.9128</strong></article>
+        <article class="metric"><span>Currency overlap</span><strong>0.8996</strong></article>
+      </div>
+    </section>
+
+    <section class="section" id="evaluation">
+      <div class="section-header">
+        <h2>Phase 1 Evaluation</h2>
+        <p>Local Mac results after guarded Ollama inference.</p>
+      </div>
+      <div class="dashboard-description" aria-label="How to read the ANAS-Local evaluation">
+        <article>
+          <strong>What was measured</strong>
+          <p>The evaluation checks whether the local model returns parseable JSON, follows the ANAS schema, and overlaps with the larger model's top category and currency exposures.</p>
+        </article>
+        <article>
+          <strong>Why the repair rate matters</strong>
+          <p>Only 1.22% of outputs needed schema repair in the guarded run, while the final schema-valid rate reached 100%. That makes the model practical as a controlled preprocessing layer.</p>
+        </article>
+        <article>
+          <strong>What the score means</strong>
+          <p>Top-3 overlap near 0.9 means the student model usually preserves the main exposure neighborhood, while small relevance-score drift remains visible for later tuning.</p>
+        </article>
+      </div>
+      <div class="finding-grid">
+        <article>
+          <p class="tag">Base model</p>
+          <h3>unsloth/Qwen3-8B</h3>
+          <p>Small enough for a local-student release, but strong enough to preserve structured extraction behavior.</p>
+        </article>
+        <article>
+          <p class="tag">Training</p>
+          <h3>QLoRA + Unsloth</h3>
+          <p>The adapter is trained for schema-constrained exposure mapping rather than general chat behavior.</p>
+        </article>
+        <article>
+          <p class="tag">Deployment</p>
+          <h3>GGUF Q4_K_M</h3>
+          <p>The release target is Mac/Ollama deployment under the model name anas-exposure-qwen3-8b-phase1.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section case-section" id="run-guide">
+      <div class="section-header">
+        <h2>Run Guide</h2>
+        <p>Minimal local setup path for release users.</p>
+      </div>
+      <ol class="case-process">
+        <li>
+          <div>
+            <strong>Install Ollama</strong>
+            <small>Local engine</small>
+          </div>
+          <span>Install Ollama, then confirm it is available with <span class="code-pill">ollama --version</span>.</span>
+        </li>
+        <li>
+          <div>
+            <strong>Download release assets</strong>
+            <small>GGUF parts + checksum</small>
+          </div>
+          <span>Place the split GGUF archive parts and <span class="code-pill">SHA256SUMS</span> in a local model folder.</span>
+        </li>
+        <li>
+          <div>
+            <strong>Reassemble and verify</strong>
+            <small>Archive integrity</small>
+          </div>
+          <span>Combine the parts, run <span class="code-pill">shasum -a 256 -c SHA256SUMS</span>, and extract the archive.</span>
+        </li>
+        <li>
+          <div>
+            <strong>Create the Ollama model</strong>
+            <small>anas-exposure-qwen3-8b-phase1</small>
+          </div>
+          <span>Register the Modelfile with Ollama, then run the model and ask for strict ANAS ExposureStruct JSON.</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" id="quality">
+      <div class="section-header">
+        <h2>Boundaries</h2>
+        <p>ANAS-Local is a local exposure mapper, not an autonomous decision system.</p>
+      </div>
+      <div class="finding-grid">
+        <article>
+          <p class="tag">No trading claim</p>
+          <h3>Preprocessing only.</h3>
+          <p>The model does not execute trades, predict markets directly, or provide financial advice.</p>
+        </article>
+        <article>
+          <p class="tag">Schema control</p>
+          <h3>Strict output shape.</h3>
+          <p>Prompts and evaluators require one JSON object using the ANAS schema keys and exposure universes.</p>
+        </article>
+        <article>
+          <p class="tag">Local-first</p>
+          <h3>Privacy-aware local engine.</h3>
+          <p>Private notes and official documents can be mapped locally before downstream warning engines consume the structured state.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section future-section" id="future">
+      <div class="section-header">
+        <h2>Next Direction</h2>
+        <p>From Phase 1 student model to a stronger local warning-system component.</p>
+      </div>
+      <div class="future-copy">
+        <p>
+          The next version can expand the training corpus, improve relevance-score calibration,
+          and add stronger regression tests around category, currency, horizon, and rationale fields.
+        </p>
+        <p>
+          ANAS-Local is designed to sit beside the full ANAS pipeline: the hosted pipeline can
+          explore and judge new event data, while the local student provides privacy-preserving
+          inference for repeated warning-system preprocessing.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      ANAS-Local is part of Tianyu Zhao's research and systems portfolio.
+    </footer>
+  </main>
+
+  <script src="assets/main.js"></script>
+  <script src="../assets/i18n.js"></script>
+</body>
+</html>

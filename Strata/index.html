@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strata | Tianyu Zhao</title>
+  <meta
+    name="description"
+    content="Strata project presentation: AI-driven goal decomposition and execution platform for iOS."
+  />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="back-link" href="../index.html#projects">Back to projects</a>
+      <button class="language-toggle" type="button">中文</button>
+    </header>
+
+    <section class="hero">
+      <img
+        class="hero-icon"
+        src="assets/strata-icon.png"
+        alt="Strata app icon"
+      />
+      <div>
+        <p class="eyebrow">AI Execution System</p>
+        <h1>Strata</h1>
+        <p class="lead">
+          Strata V2.0 is an offline-first iOS goal execution system that helps
+          users move from intention to scheduled action, focused execution,
+          progress tracking, and lightweight adjustment.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="#system">System Design</a>
+          <a class="button" href="#screens">Screenshots</a>
+          <a class="button" href="#technical">Technical Design</a>
+          <a class="button" href="#testflight">TestFlight Access</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section split" id="system">
+      <div>
+        <h2>Product Logic</h2>
+        <p>
+          Strata is not designed as a generic reminder app. The product is built
+          around a goal execution chain: define the goal, break it into
+          measurable work, schedule execution, enter focus sessions, and update
+          progress through weekly reflection.
+        </p>
+      </div>
+      <div class="panel-list">
+        <article>
+          <strong>Goal -> Task</strong>
+          <span>Root goals decompose into milestones and editable execution steps.</span>
+        </article>
+        <article>
+          <strong>Schedule -> Focus</strong>
+          <span>Tasks can be scheduled into a timeline or launched directly into a focus session.</span>
+        </article>
+        <article>
+          <strong>Progress -> Adjustment</strong>
+          <span>Actual progress is compared against time progress to guide lightweight recommendations.</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="section-header">
+        <h2>Core Loop</h2>
+        <p>From intention to execution without making the user plan every step from scratch.</p>
+      </div>
+      <ol class="process">
+        <li>
+          <strong>Choose a structure</strong>
+          <span>Smart templates provide a starting execution skeleton for exams, skills, projects, writing, or habits.</span>
+        </li>
+        <li>
+          <strong>See the next action</strong>
+          <span>The Today dashboard surfaces current status, progress, overdue work, and the best next task.</span>
+        </li>
+        <li>
+          <strong>Execute with focus</strong>
+          <span>Focus sessions bind time spent to a concrete task and feed progress back into the system.</span>
+        </li>
+        <li>
+          <strong>Review weekly</strong>
+          <span>Weekly review summarizes completed tasks, focus time, active days, current status, and the next suggestion.</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" id="screens">
+      <div class="section-header">
+        <h2>Key Screens</h2>
+        <p>Six core screens show how the product moves from planning to execution and review.</p>
+      </div>
+
+      <div class="screenshot-grid">
+        <figure class="phone-shot">
+          <div class="phone-frame">
+            <img src="assets/screenshots/template-list.jpg" alt="Strata template selection screen" />
+          </div>
+          <figcaption>
+            <strong>Template selection</strong>
+            <span>Starting structures for exams, skills, projects, papers, and habits.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="phone-shot">
+          <div class="phone-frame">
+            <img src="assets/screenshots/template-preview.jpg" alt="Strata template preview screen" />
+          </div>
+          <figcaption>
+            <strong>Template preview</strong>
+            <span>Milestones and editable steps before creating the goal.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="phone-shot featured-shot">
+          <div class="phone-frame">
+            <img src="assets/screenshots/today-dashboard.jpg" alt="Strata Today dashboard" />
+          </div>
+          <figcaption>
+            <strong>Today dashboard</strong>
+            <span>Current goal, progress, next action, focus entry, and scheduling shortcut.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="phone-shot">
+          <div class="phone-frame">
+            <img src="assets/screenshots/task-detail.jpg" alt="Strata task detail screen" />
+          </div>
+          <figcaption>
+            <strong>Task detail</strong>
+            <span>Progress insight, scheduling state, and execution controls.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="phone-shot">
+          <div class="phone-frame">
+            <img src="assets/screenshots/focus-timer.jpg" alt="Strata focus timer screen" />
+          </div>
+          <figcaption>
+            <strong>Focus timer</strong>
+            <span>Focused execution bound to a specific next action.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="phone-shot">
+          <div class="phone-frame">
+            <img src="assets/screenshots/weekly-review.jpg" alt="Strata weekly review screen" />
+          </div>
+          <figcaption>
+            <strong>Weekly review</strong>
+            <span>Reflection layer for completed tasks, focus time, active days, and status.</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section feature-grid" id="technical">
+      <article>
+        <h2>iOS Product System</h2>
+        <p>
+          Built as a SwiftUI app with Today, Plan, Done, and Settings surfaces.
+          The interface is optimized for repeated daily execution rather than
+          long planning sessions.
+        </p>
+      </article>
+      <article>
+        <h2>Execution Logic</h2>
+        <p>
+          V2.0 uses deterministic templates, next-action ranking, status
+          calculation, focus logging, advisory adjustment, and weekly review
+          instead of network-based AI generation.
+        </p>
+      </article>
+      <article>
+        <h2>Data Model</h2>
+        <p>
+          A hierarchical TaskItem model represents root goals, milestones, and
+          steps. Progress combines weighted task completion with time-based
+          expected progress.
+        </p>
+      </article>
+    </section>
+
+    <section class="section" id="status">
+      <div class="section-header">
+        <h2>Status</h2>
+        <p>Current V2.0 behavior and next development direction.</p>
+      </div>
+      <div class="status-grid">
+        <article>
+          <span>Implementation</span>
+          <strong>Offline-first V2.0</strong>
+        </article>
+        <article>
+          <span>Platform</span>
+          <strong>SwiftUI + WidgetKit</strong>
+        </article>
+        <article>
+          <span>Distribution</span>
+          <strong>TestFlight beta</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="section testflight-section" id="testflight">
+      <div>
+        <p class="eyebrow">Beta Access</p>
+        <h2>Request TestFlight access</h2>
+        <p>
+          Strata is currently available through TestFlight and has not yet been
+          released on the Apple App Store. If you would like to try the beta,
+          leave your name, email, and a short note.
+        </p>
+      </div>
+
+      <form class="testflight-form" id="testflight-form">
+        <label>
+          <span>Name</span>
+          <input name="name" type="text" placeholder="Your name" required />
+        </label>
+        <label>
+          <span>Email</span>
+          <input name="email" type="email" placeholder="your@email.com" required />
+        </label>
+        <label>
+          <span>Note</span>
+          <textarea
+            name="note"
+            rows="4"
+            placeholder="What would you like to test or learn about Strata?"
+          ></textarea>
+        </label>
+        <button class="button primary form-submit" type="submit">
+          Send request
+        </button>
+        <p class="form-note">
+          This static form opens your email client with the request details.
+        </p>
+      </form>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="section-header">
+        <h2>Next Direction</h2>
+        <p>Planned work after the current TestFlight beta.</p>
+      </div>
+      <div class="status-grid">
+        <article>
+          <span>Planning</span>
+          <strong>LLM planning layer</strong>
+        </article>
+        <article>
+          <span>Polish</span>
+          <strong>Beta feedback loop</strong>
+        </article>
+        <article>
+          <span>Release</span>
+          <strong>App Store preparation</strong>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      Strata is part of Tianyu Zhao's AI systems portfolio.
+    </footer>
+  </main>
+  <script>
+    const form = document.querySelector("#testflight-form");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const name = formData.get("name").trim();
+      const email = formData.get("email").trim();
+      const note = formData.get("note").trim();
+      const subject = encodeURIComponent("Strata TestFlight access request");
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\n\nNote:\n${note || "No note provided."}`
+      );
+
+      window.location.href = `mailto:tianyu4developer@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+  <script src="../assets/i18n.js"></script>
+</body>
+</html>

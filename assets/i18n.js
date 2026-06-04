@@ -1,0 +1,493 @@
+(() => {
+  const zh = new Map(Object.entries({
+    "Back to projects": "返回项目",
+    "Home": "主页",
+    "Projects": "项目",
+    "Research": "研究",
+    "Contact": "联系",
+    "Description": "个人简介",
+    "Skills": "技能",
+    "Computational": "计算能力",
+    "Experimental": "实验能力",
+    "Research & Systems": "研究与系统",
+    "Education & Experience": "教育与经历",
+    "Research & Education": "研究与教育",
+    "ECE PhD Student": "电子与计算机工程博士生",
+    "University of Victoria": "维多利亚大学",
+    "Selected research and product systems spanning market structure analysis, official-event intelligence, scientific computing, and execution design.": "精选研究与产品系统，涵盖市场结构分析、官方事件智能、科学计算和执行系统设计。",
+    "Graph-based FX friction analysis system built with Python, SQL/DuckDB, Dukascopy tick data, Parquet storage, and Tableau dashboards for detecting structural market events.": "基于图结构的外汇摩擦分析系统，使用 Python、SQL/DuckDB、Dukascopy tick 数据、Parquet 存储和 Tableau 仪表盘来识别结构性市场事件。",
+    "Offline-first iOS goal execution system built around the loop Goal -> Task -> Schedule -> Focus -> Progress, with templates, next-action ranking, focus sessions, and weekly review.": "离线优先的 iOS 目标执行系统，围绕 Goal -> Task -> Schedule -> Focus -> Progress 循环构建，包含模板、下一步行动排序、专注会话和周回顾。",
+    "Native C++/Qt desktop application for optical trapping data analysis, built for loading experimental recordings, visualizing signals, converting raw files, and running PSD, ACF, PDF, and transition-fitting workflows.": "用于光镊数据分析的原生 C++/Qt 桌面应用，支持加载实验记录、可视化信号、转换原始文件，并运行 PSD、ACF、PDF 和跃迁拟合流程。",
+    "License-safe official-event intelligence pipeline that uses LLM agents to convert central-bank, trade, sanctions, and macro releases into structured exposure vectors, then aligns them with FrictionGraph FX-chain stress in Tableau.": "版权安全的官方事件智能管线，使用 LLM agent 将央行、贸易、制裁和宏观公告转换为结构化风险暴露向量，并在 Tableau 中与 FrictionGraph 的外汇链压力对齐。",
+    "Dashboard": "仪表盘",
+    "Case study": "案例研究",
+    "JPY case study": "JPY 案例研究",
+    "JPY Case Study": "JPY 案例研究",
+    "Pipeline": "管线",
+    "Model": "模型",
+    "Evaluation": "评估",
+    "Run Guide": "运行指南",
+    "Run guide": "运行指南",
+    "Local Exposure Mapper": "本地暴露映射器",
+    "ANAS-Local is the local student model for ANAS Sentinel: a Qwen3-8B exposure mapper that runs through Ollama on Mac and converts event text plus metadata into strict ANAS ExposureStruct JSON.": "ANAS-Local 是 ANAS Sentinel 的本地学生模型：一个可通过 Ollama 在 Mac 上运行的 Qwen3-8B 暴露映射器，将事件文本和元数据转换为严格的 ANAS ExposureStruct JSON。",
+    "Local Engine": "本地引擎",
+    "Packaged as a GGUF Q4_K_M model for local Mac inference.": "打包为 GGUF Q4_K_M 模型，用于本地 Mac 推理。",
+    "Student Model": "学生模型",
+    "Distilled from the larger ANAS exposure-mapping workflow with QLoRA and Unsloth.": "通过 QLoRA 和 Unsloth 从更大的 ANAS 暴露映射工作流中蒸馏而来。",
+    "Core Task": "核心任务",
+    "Maps official or private event text into ANAS ExposureStruct output for downstream warning engines.": "将官方或私有事件文本映射为 ANAS ExposureStruct 输出，供下游预警引擎使用。",
+    "The original ANAS pipeline can use hosted large-model calls, but warning systems often need privacy, controllable latency, and reproducible local preprocessing. Sending every document to an external endpoint is not always the right operating mode.": "原始 ANAS 管线可以使用托管大模型调用，但预警系统通常需要隐私、可控延迟和可复现的本地预处理。把每份文档发送到外部端点并不总是合适的运行方式。",
+    "ANAS-Local narrows the model's job to one auditable transformation: event text and metadata in, schema-controlled exposure JSON out. It is a component for risk-warning infrastructure, not a trading bot or a market-prediction system.": "ANAS-Local 将模型任务收窄为一个可审计转换：输入事件文本和元数据，输出受 schema 控制的暴露 JSON。它是风险预警基础设施的组件，不是交易机器人或市场预测系统。",
+    "Model Pipeline": "模型管线",
+    "From ANAS exposure records to a local Ollama model.": "从 ANAS 暴露记录到本地 Ollama 模型。",
+    "ANAS Outputs": "ANAS 输出",
+    "Use accepted exposure structs from the larger ANAS event-intelligence workflow.": "使用更大的 ANAS 事件智能工作流中已接受的暴露结构。",
+    "SFT Dataset": "SFT 数据集",
+    "Build prompt-completion examples for ExposureStruct generation.": "构建用于生成 ExposureStruct 的 prompt-completion 样本。",
+    "QLoRA Train": "QLoRA 训练",
+    "Fine-tune unsloth/Qwen3-8B with Unsloth on the exposure-mapping task.": "使用 Unsloth 在暴露映射任务上微调 unsloth/Qwen3-8B。",
+    "GGUF Export": "GGUF 导出",
+    "Export the local Mac artifact as Q4_K_M GGUF for Ollama.": "将本地 Mac artifact 导出为 Ollama 可用的 Q4_K_M GGUF。",
+    "Guarded Eval": "带防护评估",
+    "Evaluate JSON parseability, schema validity, repair rate, and exposure overlap.": "评估 JSON 可解析性、schema 有效性、修复率和暴露重叠度。",
+    "Evaluation rows": "评估样本数",
+    "Parse rate": "解析率",
+    "Schema valid": "Schema 有效",
+    "Category overlap": "类别重叠",
+    "Currency overlap": "货币重叠",
+    "Phase 1 Evaluation": "第一阶段评估",
+    "Local Mac results after guarded Ollama inference.": "带防护 Ollama 推理后的本地 Mac 结果。",
+    "What was measured": "测量内容",
+    "The evaluation checks whether the local model returns parseable JSON, follows the ANAS schema, and overlaps with the larger model's top category and currency exposures.": "评估检查本地模型是否返回可解析 JSON、遵循 ANAS schema，并与大模型的顶部类别和货币暴露重叠。",
+    "Why the repair rate matters": "为什么修复率重要",
+    "Only 1.22% of outputs needed schema repair in the guarded run, while the final schema-valid rate reached 100%. That makes the model practical as a controlled preprocessing layer.": "在带防护运行中，只有 1.22% 的输出需要 schema 修复，而最终 schema 有效率达到 100%。这使模型适合作为受控预处理层。",
+    "What the score means": "分数含义",
+    "Top-3 overlap near 0.9 means the student model usually preserves the main exposure neighborhood, while small relevance-score drift remains visible for later tuning.": "Top-3 重叠接近 0.9，意味着学生模型通常保留主要暴露邻域，同时少量 relevance 分数漂移仍可用于后续调优。",
+    "Base model": "基础模型",
+    "Small enough for a local-student release, but strong enough to preserve structured extraction behavior.": "足够小，可作为本地学生模型发布，同时又足够强，能保留结构化抽取行为。",
+    "Training": "训练",
+    "The adapter is trained for schema-constrained exposure mapping rather than general chat behavior.": "adapter 面向受 schema 约束的暴露映射训练，而不是通用聊天行为。",
+    "Deployment": "部署",
+    "The release target is Mac/Ollama deployment under the model name anas-exposure-qwen3-8b-phase1.": "发布目标是在 Mac/Ollama 上部署，模型名为 anas-exposure-qwen3-8b-phase1。",
+    "Minimal local setup path for release users.": "面向发布用户的最小本地配置路径。",
+    "Install Ollama": "安装 Ollama",
+    "Local engine": "本地引擎",
+    "Install Ollama, then confirm it is available with": "安装 Ollama，然后用以下命令确认可用：",
+    "Download release assets": "下载发布资产",
+    "GGUF parts + checksum": "GGUF 分片 + 校验和",
+    "Place the split GGUF archive parts and": "将拆分后的 GGUF archive 分片和",
+    "in a local model folder.": "放入本地模型文件夹。",
+    "Reassemble and verify": "重组并验证",
+    "Archive integrity": "Archive 完整性",
+    "Combine the parts, run": "合并分片，运行",
+    "and extract the archive.": "并解压 archive。",
+    "Create the Ollama model": "创建 Ollama 模型",
+    "Register the Modelfile with Ollama, then run the model and ask for strict ANAS ExposureStruct JSON.": "用 Ollama 注册 Modelfile，然后运行模型并要求输出严格的 ANAS ExposureStruct JSON。",
+    "Boundaries": "边界",
+    "ANAS-Local is a local exposure mapper, not an autonomous decision system.": "ANAS-Local 是本地暴露映射器，不是自主决策系统。",
+    "No trading claim": "不声明交易能力",
+    "Preprocessing only.": "仅用于预处理。",
+    "The model does not execute trades, predict markets directly, or provide financial advice.": "模型不执行交易、不直接预测市场，也不提供金融建议。",
+    "Strict output shape.": "严格输出形状。",
+    "Prompts and evaluators require one JSON object using the ANAS schema keys and exposure universes.": "prompt 和评估器要求输出一个使用 ANAS schema keys 和暴露 universe 的 JSON 对象。",
+    "Local-first": "本地优先",
+    "Privacy-aware local engine.": "注重隐私的本地引擎。",
+    "Private notes and official documents can be mapped locally before downstream warning engines consume the structured state.": "私有笔记和官方文件可以先在本地映射，再由下游预警引擎消费结构化状态。",
+    "Next Direction": "下一步方向",
+    "From Phase 1 student model to a stronger local warning-system component.": "从第一阶段学生模型走向更强的本地预警系统组件。",
+    "The next version can expand the training corpus, improve relevance-score calibration, and add stronger regression tests around category, currency, horizon, and rationale fields.": "下一版可以扩展训练语料，改进 relevance 分数校准，并围绕 category、currency、horizon 和 rationale 字段增加更强的回归测试。",
+    "ANAS-Local is designed to sit beside the full ANAS pipeline: the hosted pipeline can explore and judge new event data, while the local student provides privacy-preserving inference for repeated warning-system preprocessing.": "ANAS-Local 被设计为与完整 ANAS 管线并行：托管管线可以探索和评审新事件数据，而本地学生模型为重复的预警系统预处理提供保护隐私的推理。",
+    "ANAS-Local is part of Tianyu Zhao's research and systems portfolio.": "ANAS-Local 是 Tianyu Zhao 研究与系统作品集的一部分。",
+    "Local-first ANAS Sentinel student model that distills the official-event exposure mapper into a Qwen3-8B Ollama model, returning strict ANAS ExposureStruct JSON for downstream warning-system preprocessing.": "本地优先的 ANAS Sentinel 学生模型，将官方事件暴露映射器蒸馏为 Qwen3-8B Ollama 模型，为下游预警系统预处理返回严格的 ANAS ExposureStruct JSON。",
+    "System design": "系统设计",
+    "Workflow": "工作流",
+    "Status": "状态",
+    "Download for macOS": "下载 macOS 版",
+    "Download for Windows": "下载 Windows 版",
+    "Representative publications": "代表性论文",
+    "Data Processing": "数据处理",
+    "Machine Learning": "机器学习",
+    "Neural Network": "神经网络",
+    "Email": "邮箱",
+    "Location": "位置",
+    "Official Event Intelligence Pipeline": "官方事件智能管线",
+    "ANAS is a license-safe financial event intelligence system that turns official public documents into structured category and currency exposure vectors, then aligns those vectors with FrictionGraph's daily FX-chain stress outputs.": "ANAS 是一个版权安全的金融事件智能系统，它将官方公开文件转换为结构化的类别与货币风险暴露向量，并将这些向量与 FrictionGraph 的每日外汇链压力输出对齐。",
+    "Source Governance": "来源治理",
+    "Official-only": "仅使用官方来源",
+    "Uses license-safe government and central-bank documents instead of copyrighted news full text.": "使用版权安全的政府和央行文件，而不是受版权保护的新闻全文。",
+    "LLM System": "LLM 系统",
+    "Agent pipeline": "Agent 管线",
+    "Extractor and judge agents convert cleaned documents into strict JSON exposure structs.": "抽取 agent 和评审 agent 将清洗后的文件转换为严格的 JSON 暴露结构。",
+    "Market Alignment": "市场对齐",
+    "Event exposures are aligned with daily FX triangular-chain stress, RMSD, and JPY case windows.": "事件暴露与每日外汇三角链压力、RMSD 和 JPY 案例窗口进行对齐。",
+    "The problem": "问题",
+    "News-driven market projects often rely on copyrighted articles, noisy headlines, or unverifiable summaries. ANAS reframes the task around official documents: policy releases, central-bank communication, sanctions, trade actions, energy reports, and macro announcements.": "新闻驱动的市场项目经常依赖受版权保护的文章、噪声标题或无法验证的摘要。ANAS 将任务重新定义为围绕官方文件展开：政策公告、央行沟通、制裁、贸易行动、能源报告和宏观发布。",
+    "The idea": "核心思路",
+    "Instead of asking a model to predict prices, ANAS asks a narrower and auditable question: what category, country, and currency exposures does this official event create, and do those exposures overlap nearby FrictionGraph chain stress?": "ANAS 不让模型预测价格，而是提出一个更窄且可审计的问题：这个官方事件产生了哪些类别、国家和货币暴露？这些暴露是否与附近的 FrictionGraph 链压力重叠？",
+    "From official documents to Tableau-ready event intelligence.": "从官方文件到可进入 Tableau 的事件智能。",
+    "Official Sources": "官方来源",
+    "Fed, USTR, Treasury/OFAC, BOJ, Japan MOF, macro and policy releases.": "美联储、USTR、美国财政部/OFAC、日本央行、日本财务省，以及宏观与政策公告。",
+    "Source selection stays license-safe by using public official documents instead of copyrighted news full text.": "来源选择使用公开官方文件，而不是受版权保护的新闻全文，从而保持版权安全。",
+    "Document Store": "文档存储",
+    "Clean text, word-count validation, source metadata, and content hashes.": "清洗文本、字数验证、来源元数据和内容哈希。",
+    "Each record keeps enough provenance to be audited later while raw document handling remains local and controlled.": "每条记录保留足够的来源信息，便于后续审计，同时原始文档处理保持本地和可控。",
+    "LLM Extractor": "LLM 抽取器",
+    "Category, country, and currency exposure vectors in strict JSON.": "以严格 JSON 表示的类别、国家和货币暴露向量。",
+    "The model performs extraction rather than price prediction, producing relevance, impact, direction, and rationale fields.": "模型执行抽取而不是价格预测，生成 relevance、impact、direction 和 rationale 字段。",
+    "Judge Gate": "评审关口",
+    "Reject malformed, weak, duplicate, or out-of-universe exposures.": "拒绝格式错误、弱相关、重复或超出货币范围的暴露。",
+    "A second validation layer keeps noisy outputs out of the accepted event dataset before dashboard export.": "第二层验证在导出仪表盘前，将噪声输出排除在 accepted 事件数据集之外。",
+    "Alignment Export": "对齐导出",
+    "Join accepted events with FrictionGraph RMSD and Tableau views.": "将 accepted 事件与 FrictionGraph RMSD 和 Tableau 视图连接。",
+    "The output supports explanatory inspection of event exposures near FX-chain stress windows, not causal trading claims.": "输出用于解释性检查外汇链压力窗口附近的事件暴露，而不是提出因果交易结论。",
+    "General documents": "通用文档",
+    "Accepted exposures": "接受的暴露",
+    "JPY case events": "JPY 案例事件",
+    "Chain universe": "链范围",
+    "General Alignment Dashboard": "通用对齐仪表盘",
+    "Broad official-event waterfall and impact/relevance alignment ranking.": "广义官方事件瀑布图，以及 impact/relevance 对齐排名。",
+    "What this dashboard shows": "这个仪表盘展示什么",
+    "Each point is an official public event that ANAS converted into structured category and currency exposure. The two waterfall views show where those events fall across time, while color and size encode the model-estimated impact and score.": "每个点都是 ANAS 转换成结构化类别与货币暴露的官方公开事件。两个瀑布图展示事件在时间上的分布，颜色和大小编码模型估计的 impact 与 score。",
+    "How to read the rankings": "如何阅读排名",
+    "The lower bars rank events by their overlap with nearby FrictionGraph FX-chain stress. Impact ranking favors stronger market-shock interpretation; relevance ranking favors semantic closeness even when the immediate shock is small.": "下方柱状图按照事件与附近 FrictionGraph 外汇链压力的重叠程度排序。Impact 排名偏向更强的市场冲击解释；relevance 排名即使即时冲击较小，也会保留语义接近的事件。",
+    "Why it matters": "为什么重要",
+    "This view is not a price prediction chart. It is an audit layer: it shows whether official macro, trade, sanctions, energy, and policy events create exposure patterns that line up with observable FX stress windows.": "这个视图不是价格预测图，而是审计层：它展示官方宏观、贸易、制裁、能源和政策事件是否形成了与可观察外汇压力窗口相匹配的暴露模式。",
+    "ANAS Alignment": "ANAS 对齐",
+    "Tableau Public embedded view": "Tableau Public 嵌入视图",
+    "Impact + relevance": "Impact + relevance",
+    "JPY Stress Case Study": "JPY 压力案例研究",
+    "Official BOJ/MOF events around a FrictionGraph JPY-chain stress window.": "围绕 FrictionGraph JPY 链压力窗口的日本央行/财务省官方事件。",
+    "Market-side signal": "市场侧信号",
+    "Official-event context": "官方事件背景",
+    "Relevance vs impact": "Relevance 与 impact",
+    "Why the split matters": "为什么这个区分重要",
+    "What the case isolates": "这个案例隔离了什么",
+    "What the chain bars mean": "链条柱状图的含义",
+    "What the event ranking proves": "事件排名说明什么",
+    "Guardrails": "约束与防护",
+    "ANAS is designed to be portfolio-safe and auditable.": "ANAS 被设计为适合作品集展示且可审计的系统。",
+    "Copyright safety": "版权安全",
+    "Official documents only.": "仅使用官方文件。",
+    "Schema control": "Schema 控制",
+    "Strict currency universe.": "严格的货币 universe。",
+    "Interpretability": "可解释性",
+    "No prediction claim.": "不声明预测能力。",
+    "Future Direction": "未来方向",
+    "From portfolio demo to trainable event-intelligence system.": "从作品集 demo 走向可训练的事件智能系统。",
+    "The next step is to expand the official-event corpus from hundreds to thousands of documents while preserving the same source policy, hashing, validation, and judge pipeline. The accepted and rejected records become supervised material for a smaller task-specific model.": "下一步是在保持相同来源策略、哈希、验证和评审管线的前提下，将官方事件语料从数百篇扩展到数千篇。被接受和拒绝的记录可以成为更小型任务专用模型的监督材料。",
+    "ANAS and FrictionGraph are designed to complement each other. FrictionGraph detects when FX market structure becomes stressed; ANAS helps explain which official event exposures belong near that stress window.": "ANAS 和 FrictionGraph 被设计为相互补充：FrictionGraph 检测外汇市场结构何时进入压力状态；ANAS 帮助解释哪些官方事件暴露属于该压力窗口附近。",
+    "ANAS is part of Tianyu Zhao's research and systems portfolio.": "ANAS 是 Tianyu Zhao 研究与系统作品集的一部分。",
+    "Market Structure Research Prototype": "市场结构研究原型",
+    "A graph-based FX research system for detecting structural market imbalance from triangular currency friction. The project reconstructs latest-known tick states, scores directed currency loops, and turns daily chain-width behavior into interpretable anomaly cases.": "一个基于图结构的外汇研究系统，用三角货币摩擦检测结构性市场失衡。项目重构 latest-known tick 状态，对有向货币环打分，并将每日链宽行为转化为可解释的异常案例。",
+    "View Dashboard": "查看仪表盘",
+    "Read Cases": "阅读案例",
+    "Data Engineering": "数据工程",
+    "Built a reproducible pipeline for tick ingestion, Parquet storage, DuckDB querying, and CSV feature export.": "构建了可复现的数据管线，用于 tick 数据摄取、Parquet 存储、DuckDB 查询和 CSV 特征导出。",
+    "Market Data": "市场数据",
+    "Collected open FX tick data and reconstructed latest-known market states for graph analysis.": "采集开放外汇 tick 数据，并为图分析重构 latest-known 市场状态。",
+    "Visualization": "可视化",
+    "Designed an interactive dashboard for daily width, chain decomposition, and case-study exploration.": "设计了交互式仪表盘，用于查看每日 width、链分解和案例研究。",
+    "What it measures": "它测量什么",
+    "FrictionGraph treats currency pairs as directed tradeable graph edges. For each analysis minute, it finds the latest quote before that time, constructs triangular loops, and measures how far those loops drift from internal consistency.": "FrictionGraph 将货币对视为有向可交易图边。对于每一个分析分钟，它寻找该时间之前的最新报价，构建三角环，并测量这些环偏离内部一致性的程度。",
+    "Why it matters": "为什么重要",
+    "A single spike can be noise. A day where multiple chains widen together is more informative. The system focuses on chain-level structure, which helps separate stale quotes, holiday liquidity regimes, and policy-driven repricing events.": "单个尖峰可能只是噪声；多条链同时变宽的一天更有信息量。系统关注链级结构，从而帮助区分陈旧报价、假日流动性状态和政策驱动的重定价事件。",
+    "Method": "方法",
+    "From raw tick data to daily structural width.": "从原始 tick 数据到每日结构宽度。",
+    "Ingest raw Dukascopy ticks": "摄取原始 Dukascopy tick",
+    "Download bid/ask tick data by instrument and save chunked Parquet files.": "按品种下载 bid/ask tick 数据，并保存为分块 Parquet 文件。",
+    "Prepare DuckDB views": "准备 DuckDB 视图",
+    "Expose the Parquet data lake as a queryable fx_ticks view.": "将 Parquet 数据湖暴露为可查询的 fx_ticks 视图。",
+    "Expose the Parquet data lake as a queryable": "将 Parquet 数据湖暴露为可查询的",
+    "view.": "视图。",
+    "Reconstruct latest-known states": "重构 latest-known 状态",
+    "At every analysis minute, select the latest available quote for each instrument.": "在每个分析分钟，为每个品种选择最新可用报价。",
+    "Score directed triangular chains": "为有向三角链打分",
+    "Build currency graph loops and normalize scores into friction form.": "构建货币图环，并将得分标准化为 friction 形式。",
+    "Aggregate daily width": "聚合每日 width",
+    "Export sum_rmsd, gap, and chain-day features for Tableau.": "导出 sum_rmsd、gap 和 chain-day 特征用于 Tableau。",
+    "Export": "导出",
+    ", and chain-day features for Tableau.": "以及 chain-day 特征用于 Tableau。",
+    "Findings": "发现",
+    "Interactive Dashboard": "交互式仪表盘",
+    "Embedded Tableau view for exploring daily width and chain decomposition.": "嵌入式 Tableau 视图，用于探索每日 width 和链分解。",
+    "Case Study": "案例研究",
+    "Understand market structure, not arbitrage.": "理解市场结构，而不是套利。",
+    "From daily FX friction research to broader market intelligence.": "从每日外汇摩擦研究走向更广义的市场智能。",
+    "FrictionGraph is part of Tianyu Zhao's research and systems portfolio.": "FrictionGraph 是 Tianyu Zhao 研究与系统作品集的一部分。",
+    "Official Event Intelligence Pipeline": "官方事件智能管线",
+    "AI Execution System": "AI 执行系统",
+    "Strata V2.0 is an offline-first iOS goal execution system that helps users move from intention to scheduled action, focused execution, progress tracking, and lightweight adjustment.": "Strata V2.0 是一个离线优先的 iOS 目标执行系统，帮助用户从意图进入排程行动、专注执行、进度追踪和轻量调整。",
+    "Product Logic": "产品逻辑",
+    "Strata is not designed as a generic reminder app. The product is built around a goal execution chain: define the goal, break it into measurable work, schedule execution, enter focus sessions, and update progress through weekly reflection.": "Strata 不是一个通用提醒应用。它围绕目标执行链构建：定义目标、拆分为可衡量工作、安排执行、进入专注会话，并通过周回顾更新进度。",
+    "Goal -> Task": "Goal -> Task",
+    "Root goals decompose into milestones and editable execution steps.": "根目标会拆解为里程碑和可编辑的执行步骤。",
+    "Schedule -> Focus": "Schedule -> Focus",
+    "Tasks can be scheduled into a timeline or launched directly into a focus session.": "任务可以被安排到时间线中，也可以直接启动为专注会话。",
+    "Progress -> Adjustment": "Progress -> Adjustment",
+    "Actual progress is compared against time progress to guide lightweight recommendations.": "实际进度会与时间进度对比，用于生成轻量级建议。",
+    "Core Loop": "核心循环",
+    "From intention to execution without making the user plan every step from scratch.": "从意图进入执行，而不要求用户从零规划每一步。",
+    "Choose a structure": "选择结构",
+    "Smart templates provide a starting execution skeleton for exams, skills, projects, writing, or habits.": "智能模板为考试、技能、项目、写作或习惯提供起始执行结构。",
+    "See the next action": "看到下一步行动",
+    "The Today dashboard surfaces current status, progress, overdue work, and the best next task.": "Today 仪表盘展示当前状态、进度、逾期工作和最合适的下一步任务。",
+    "Execute with focus": "专注执行",
+    "Focus sessions bind time spent to a concrete task and feed progress back into the system.": "专注会话将时间投入绑定到具体任务，并把进度反馈回系统。",
+    "Review weekly": "每周回顾",
+    "Weekly review summarizes completed tasks, focus time, active days, current status, and the next suggestion.": "周回顾总结完成任务、专注时间、活跃天数、当前状态和下一条建议。",
+    "Key Screens": "关键界面",
+    "Six core screens show how the product moves from planning to execution and review.": "六个核心界面展示产品如何从规划进入执行与回顾。",
+    "Technical Design": "技术设计",
+    "TestFlight Access": "TestFlight 体验",
+    "Beta Access": "Beta 体验",
+    "Request TestFlight access": "申请 TestFlight 体验",
+    "Strata is currently available through TestFlight and has not yet been released on the Apple App Store. If you would like to try the beta, leave your name, email, and a short note.": "Strata 目前通过 TestFlight 提供测试版本，尚未在 Apple App Store 上架。如果你想体验 beta，请留下姓名、邮箱和简短说明。",
+    "Name": "姓名",
+    "Note": "备注",
+    "Send request": "发送申请",
+    "This static form opens your email client with the request details.": "这个静态表单会打开你的邮件客户端，并自动填入申请内容。",
+    "Next Direction": "下一步方向",
+    "Planned work after the current TestFlight beta.": "当前 TestFlight beta 之后的计划工作。",
+    "Implementation": "实现",
+    "Distribution": "分发",
+    "Planning": "规划",
+    "Polish": "打磨",
+    "Release": "发布",
+    "Strata is part of Tianyu Zhao's AI systems portfolio.": "Strata 是 Tianyu Zhao AI 系统作品集的一部分。",
+    "Main Features": "主要功能",
+    "Native C++/Qt desktop software for optical trapping data analysis, designed to replace slower MATLAB-style workflows with an integrated interface for data conversion, visualization, and analysis.": "用于光镊数据分析的原生 C++/Qt 桌面软件，旨在用一体化的数据转换、可视化和分析界面替代较慢的 MATLAB 式工作流。",
+    "Multi-format experimental data recognition and conversion": "多格式实验数据识别与转换",
+    "File management inside a desktop analysis workflow": "桌面分析工作流中的文件管理",
+    "Signal visualization in an interactive plotting window": "交互式绘图窗口中的信号可视化",
+    "Visualization mode with filtering support": "支持滤波的可视化模式",
+    "PSD analysis with Lorentzian fitting": "带 Lorentzian 拟合的 PSD 分析",
+    "ACF analysis with multi-exponential fitting": "带多指数拟合的 ACF 分析",
+    "PDF analysis with Gaussian mixture fitting": "带高斯混合拟合的 PDF 分析",
+    "Three-step transition fitting with Auto and Manual modes": "带自动和手动模式的三步跃迁拟合",
+    "Adjustable UI font size for better readability": "可调 UI 字体大小，提升可读性",
+    "Python · MATLAB · C++ · SQL · Tableau · Scientific Computing · Data Visualization": "Python · MATLAB · C++ · SQL · Tableau · 科学计算 · 数据可视化",
+    "Optical Trapping · Experimental Setup Design · Signal Acquisition · Laser Systems · Nanoscale Biophysics": "光镊 · 实验系统设计 · 信号采集 · 激光系统 · 纳米尺度生物物理",
+    "Machine Learning · Quantitative Analysis · High-Performance Data Processing · Scientific Software Development": "机器学习 · 量化分析 · 高性能数据处理 · 科学软件开发",
+    "PhD in Electrical & Computer Engineering": "电子与计算机工程博士",
+    "Optical Trapping · Protein Dynamics · Scientific Computing": "光镊 · 蛋白质动力学 · 科学计算",
+    "Graduate Studies in Acoustics Engineering": "声学工程研究生学习经历",
+    "B.Sc. in Physics": "物理学学士",
+    "Exchange Student in Computational Physics (United States)": "计算物理方向交换学生（美国）",
+    "© 2026 Tianyu Zhao.": "© 2026 Tianyu Zhao.",
+    "Text-based signal import. The code looks for": "基于文本的信号导入。代码会查找",
+    "when present and also supports multi-column numeric text input.": "；如果存在该字段，也支持多列数值文本输入。",
+    "Typically exported from National Instruments DAQ workflows": "通常来自 National Instruments DAQ 工作流导出",
+    "Binary waveform import using the": "使用",
+    "format.": "格式导入二进制波形。",
+    "Keysight / Agilent DSO-series oscilloscopes": "Keysight / Agilent DSO 系列示波器",
+    "MATLAB 5 waveform import. The parser reads fields such as": "MATLAB 5 波形导入。解析器会读取字段，例如",
+    "PicoScope-exported MATLAB files": "PicoScope 导出的 MATLAB 文件",
+    "Detected by the software, but not imported directly because the format is proprietary.": "软件可以识别该格式，但由于它是专有格式，不会直接导入。",
+    "PicoScope session files; export to": "PicoScope 会话文件；请先导出为",
+    "first": "。",
+    "Internal Optical Trap Data format used after conversion.": "转换后使用的内部 Optical Trap Data 格式。",
+    "OpticalTrap internal analysis format": "OpticalTrap 内部分析格式",
+    ", and loading converted recordings.": "，并加载转换后的记录。",
+    "Basic signal inspection and filtered viewing for defining the signal window and reviewing raw or filtered traces before higher-level analysis.": "基础信号检查和滤波视图，用于定义信号窗口，并在更高层分析之前查看原始或滤波后的轨迹。",
+    "Power spectral density analysis and Lorentzian fitting for examining frequency-domain behavior and extracting characteristic spectral parameters.": "功率谱密度分析与 Lorentzian 拟合，用于检查频域行为并提取特征谱参数。",
+    "Autocorrelation analysis with one or more exponential terms for characterizing time correlations and relaxation-like behavior.": "使用一个或多个指数项进行自相关分析，用于表征时间相关性和类似弛豫的行为。",
+    "Probability distribution analysis with Gaussian mixture fitting for identifying multiple populations or states in a measurement.": "使用高斯混合拟合进行概率分布分析，用于识别测量中的多个群体或状态。",
+    "Transition fitting based on a three-state interpretation of the signal:": "基于信号三态解释的跃迁拟合：",
+    "before transition,": "表示跃迁前，",
+    "during transition, and": "表示跃迁期间，",
+    "after transition. It supports Auto mode and Manual mode.": "表示跃迁后。它支持自动模式和手动模式。",
+    "Add a supported file or folder in the Files panel.": "在 Files 面板中添加支持的文件或文件夹。",
+    "Convert raw data into": "将原始数据转换为",
+    "when needed.": "（如有需要）。",
+    "Load the converted signal.": "加载转换后的信号。",
+    "Inspect the signal in the visualization window.": "在可视化窗口中检查信号。",
+    "Choose the required analysis function.": "选择所需的分析功能。",
+    "Adjust parameters in the analysis panel.": "在分析面板中调整参数。",
+    "Run the analysis and review the output.": "运行分析并查看输出。",
+    "Notes": "说明",
+    "files are recognized but cannot be converted directly.": "文件可以被识别，但不能直接转换。",
+    "For PicoScope workflows, export": "对于 PicoScope 工作流，请先将",
+    "to": "导出为",
+    "is the preferred internal format for repeated analysis and faster loading.": "是重复分析和快速加载时推荐使用的内部格式。",
+    "The interface supports font scaling through the Settings menu.": "界面支持通过 Settings 菜单调整字体大小。",
+    "FrictioGraph Explorer": "FrictionGraph Explorer",
+    "FrictionGraph Explorer": "FrictionGraph Explorer",
+    "Top RMSD workflow": "Top RMSD 工作流",
+    "Two recurring classes emerged after the 2025 extension.": "扩展到 2025 年数据后，出现了两类重复模式。",
+    "Holiday liquidity regime": "假日流动性状态",
+    "Good Friday repeats the same structural pattern.": "Good Friday 重复出现相同的结构模式。",
+    "The 2024-03-29 and 2025-04-18 peaks both land on Good Friday and both show a CHF-SGD-centered chain block. This suggests a recurring holiday liquidity signature rather than a one-off anomaly.": "2024-03-29 和 2025-04-18 的峰值都落在 Good Friday，并且都呈现以 CHF-SGD 为中心的链块。这说明它更像是重复出现的假日流动性特征，而不是一次性异常。",
+    "Policy repricing regime": "政策重定价状态",
+    "JPY-centered events behave differently.": "以 JPY 为中心的事件呈现不同模式。",
+    "The 2025-12-01 peak is driven by JPY-linked chain volatility, with SGD, CHF, CAD, EUR, and USD rotating around the repricing event. It is a broad intraday instability case, not simply a holiday pattern.": "2025-12-01 的峰值由 JPY 相关链波动驱动，SGD、CHF、CAD、EUR 和 USD 围绕该重定价事件变化。这是一个广义的日内不稳定案例，而不只是一个假日模式。",
+    "Model interpretation": "模型解释",
+    "Top RMSD chain is the right event lens.": "Top RMSD chain 是更合适的事件观察角度。",
+    "Since the overall dashboard is centered on daily": "由于整体仪表盘围绕每日",
+    ", the explanatory route for a selected day should be the highest-RMSD chain rather than the most negative mean-friction chain.": "展开，因此解释某一天时应使用最高 RMSD 链，而不是最负的平均 friction 链。",
+    "Christmas liquidity peaks": "圣诞流动性峰值",
+    "Christmas produces the largest daily width peak in both 2024 and 2025. The repetition suggests a holiday liquidity regime rather than a single news-driven anomaly.": "圣诞节在 2024 和 2025 年都产生了最大的每日 width 峰值。这种重复性说明它更像是假日流动性状态，而不是单一新闻驱动异常。",
+    "Good Friday overlap": "Good Friday 重叠",
+    "The 2024-03-29 and 2025-04-18 Good Friday peaks both appear in nearly the same region of the": "2024-03-29 和 2025-04-18 的 Good Friday 峰值都出现在",
+    "view, with a similar CHF-SGD-centered structure.": "视图中几乎相同的区域，并呈现类似的 CHF-SGD 中心结构。",
+    "JPY policy repricing": "JPY 政策重定价",
+    "Unlike the holiday cases, the 2025-12-01 event appears in 2025 but not in 2024, which helps separate it from recurring calendar effects. The chain structure is JPY-centered, consistent with market reaction to Bank of Japan Governor Kazuo Ueda signaling that a December rate hike would be considered.": "不同于假日案例，2025-12-01 事件只出现在 2025 年而不出现在 2024 年，这有助于将它与重复日历效应区分开来。链结构以 JPY 为中心，与市场对日本央行行长植田和男释放“12 月可能考虑加息”信号的反应一致。",
+    "Reuters coverage": "Reuters 报道",
+    "FrictionGraph started from a simple research idea: if market structure becomes stressed, the inconsistency should appear somewhere in the graph before it becomes a clean narrative. Using open Dukascopy FX tick data and daily-resolution features, the project already surfaced a real event pattern, including recurring holiday liquidity regimes and a JPY-centered policy repricing episode.": "FrictionGraph 起源于一个简单的研究想法：如果市场结构进入压力状态，那么在形成清晰叙事之前，不一致性应该先出现在图结构的某个位置。使用开放的 Dukascopy 外汇 tick 数据和日频特征后，项目已经发现了真实事件模式，包括重复出现的假日流动性状态和以 JPY 为中心的政策重定价片段。",
+    "The next version can improve in two directions. First, the data layer can expand beyond FX into futures, crypto, and equity markets, so the graph captures cross-asset stress instead of currency loops alone. Second, the monitoring frequency can move from daily analysis toward millisecond-level tracking, making the system closer to a real-time market structure monitor.": "下一版可以从两个方向改进。第一，数据层可以从外汇扩展到期货、加密资产和股票市场，使图结构捕捉跨资产压力，而不只是货币环。第二，监控频率可以从日频分析走向毫秒级追踪，使系统更接近实时市场结构监控器。",
+    "In practice, this system can act as an event filter. Event-driven strategies often start from news, but the world produces too many headlines to treat every story as actionable. FrictionGraph offers a market-side screen: it helps identify which events actually disturb the trading graph. The same idea can also support risk monitoring by measuring whether stress is concentrating around a region or asset group, giving investors another signal for capital withdrawal, reallocation, or entry timing.": "在实践中，这个系统可以作为事件过滤器。事件驱动策略通常从新闻开始，但世界产生的标题太多，不可能把每条新闻都视为可交易信息。FrictionGraph 提供了市场侧筛选：它帮助识别哪些事件真正扰动了交易图结构。同样的思路也可以支持风险监控，通过测量压力是否集中在某个地区或资产组周围，为资金撤出、再配置或入场时机提供额外信号。",
+    "Supported Data Formats": "支持的数据格式",
+    "Format": "格式",
+    "Description": "说明",
+    "I am a PhD student in Electrical and Computer Engineering at the University of Victoria, working on optical trapping systems and nanoscale biophysics. My research combines experimental biophysics, signal processing, and computational analysis to study molecular and extracellular-vesicle behavior in optical trapping experiments. I also developed OpticalTrap, a C++/Qt desktop application for visualizing, converting, and analyzing optical trapping data.": "我是维多利亚大学电子与计算机工程博士生，研究方向包括光镊系统和纳米尺度生物物理。我的研究结合实验生物物理、信号处理和计算分析，用于研究光镊实验中的分子与胞外囊泡行为。我还开发了 <a href=\"opticaltrap.html\">OpticalTrap</a>，一个用于光镊数据可视化、转换和分析的 C++/Qt 桌面应用。",
+    "Beyond research, I build applied computational systems for quantitative analysis, information processing, and personal productivity. My recent projects include FrictionGraph, a cross-market anomaly and friction detection system for financial data; ANAS, a structured official-event alignment pipeline; ANAS-Local, a local Qwen3-8B exposure mapper for ANAS Sentinel; and Strata, an offline-first iOS goal execution app currently in TestFlight.": "在研究之外，我也构建用于量化分析、信息处理和个人生产力的应用型计算系统。近期项目包括 <a href=\"FrictionGraph/index.html\">FrictionGraph</a>，一个面向金融数据的跨市场异常与摩擦检测系统；<a href=\"ANAS/index.html\">ANAS</a>，一个结构化官方事件对齐管线；<a href=\"ANAS-Local/index.html\">ANAS-Local</a>，一个面向 ANAS Sentinel 的本地 Qwen3-8B 暴露映射器；以及 <a href=\"Strata/index.html\">Strata</a>，一个目前处于 TestFlight 阶段的离线优先 iOS 目标执行应用。",
+    "My technical interests span scientific software, signal and data processing, quantitative systems, market microstructure, machine learning applications, and reliable data infrastructure. I enjoy designing systems that connect theory, computation, and real-world decision making across research and engineering domains.": "我的技术兴趣包括科学软件、信号与数据处理、量化系统、市场微观结构、机器学习应用和可靠的数据基础设施。我喜欢设计能够连接理论、计算与真实世界决策的系统，并将它们应用在研究与工程场景中。",
+    "Outside of work, I enjoy coffee brewing, photography, and long-form discussions on technology, economics, and the future of AI systems.": "工作之外，我喜欢咖啡冲煮、摄影，以及围绕技术、经济和 AI 系统未来展开的长篇讨论。",
+    "Likely source / instrument": "可能来源 / 仪器",
+    "Analysis Functions": "分析功能",
+    "Recommended Workflow": "推荐工作流",
+    "Output": "输出",
+    "Main Interface": "主界面",
+    "Files panel for dragging in files or folders, detecting supported formats, converting raw files to .otd, and loading converted recordings.": "文件面板用于拖入文件或文件夹、检测支持格式、将原始文件转换为 .otd，并加载转换后的记录。",
+    "Files panel for dragging in files or folders, detecting supported formats, converting raw files to": "文件面板用于拖入文件或文件夹、检测支持格式、将原始文件转换为",
+    "Visualization window for inspecting signals, switching analysis tabs, and reviewing function outputs.": "可视化窗口用于检查信号、切换分析标签页，并查看函数输出。",
+    "Analysis panel with parameter controls for switching quickly between processing modes.": "分析面板提供参数控制，可在不同处理模式之间快速切换。",
+    "Visualization function": "可视化功能",
+    "PSD + Lorentzian function": "PSD + Lorentzian 功能",
+    "ACF + Multi-exp Fit function": "ACF + 多指数拟合功能",
+    "PDF + GMM Fit function": "PDF + GMM 拟合功能",
+    "Three-Step transition fitting function": "三步跃迁拟合功能",
+    "PSD + Lorentzian": "PSD + Lorentzian",
+    "ACF + Multi-exp Fit": "ACF + 多指数拟合",
+    "PDF + GMM Fit": "PDF + GMM 拟合",
+    "Three-Step Fit": "三步拟合",
+    "first.": "。",
+    "FrictionGraph shows a local JPY-centered stress window. The largest standalone RMSD chain on 2025-12-01 is": "FrictionGraph 显示了一个以 JPY 为中心的局部压力窗口。2025-12-01 最大的单独 RMSD 链是",
+    "BOJ and Japan MOF": "日本央行与日本财务省",
+    "ANAS identifies official BOJ speeches, Japan MOF intervention disclosures, and JGB/reserve documents as the most relevant event neighborhood for the JPY stress window.": "ANAS 将日本央行讲话、日本财务省干预披露以及 JGB/储备文件识别为与 JPY 压力窗口最相关的事件邻域。",
+    "The MOF FX intervention disclosure is highly relevant to JPY but has zero immediate impact because the disclosed intervention amount is JPY 0. ANAS preserves this distinction instead of forcing a false shock narrative.": "日本财务省的外汇干预披露与 JPY 高度相关，但由于披露的干预金额为 0，它的即时 impact 为零。ANAS 保留了这种区别，而不是强行构造虚假的冲击叙事。",
+    "The dashboard focuses on the 2025-11-28 to 2025-12-01 JPY stress window. The timeline separates the ordinary context period from the focus days so the reader can see the local jump instead of a full-year blur.": "该仪表盘聚焦 2025-11-28 至 2025-12-01 的 JPY 压力窗口。时间线将普通背景期与重点日期分开，使读者看到局部跃迁，而不是全年尺度上的模糊变化。",
+    "The top-chain panel ranks the FX triangular chains contributing the most RMSD on the focus days. JPY appears inside the leading chains, which makes the official Japan-related event neighborhood worth inspecting.": "top-chain 面板对重点日期中贡献最多 RMSD 的外汇三角链进行排序。JPY 出现在领先链条中，因此值得检查日本相关官方事件邻域。",
+    "The final ranking connects official events to the JPY stress window through ANAS exposure scores. BOJ and MOF documents rise to the top, while Fed context remains visible as a broader macro backdrop.": "最终排名通过 ANAS 暴露得分将官方事件与 JPY 压力窗口连接起来。日本央行和日本财务省文件排在前列，而美联储背景作为更广义的宏观背景仍然可见。",
+    "JPY chain stress": "JPY 链压力",
+    "explanatory, not causal": "解释性，而非因果性",
+    "The public workflow avoids storing copyrighted news article full text. Training candidates come from official public sources and derived exposure structs.": "公开工作流避免存储受版权保护的新闻全文。训练候选样本来自官方公开来源以及派生的暴露结构。",
+    "The current FrictionGraph alignment space is CAD, CHF, EUR, JPY, SGD, USD, with CNH and XAU as event proxies. Out-of-universe outputs are guarded.": "当前 FrictionGraph 对齐空间包括 CAD、CHF、EUR、JPY、SGD、USD，并使用 CNH 和 XAU 作为事件代理。系统会防护超出范围的输出。",
+    "Dashboards show explanatory alignment between official events and market structure stress. They are not presented as trading signals or causal proof.": "仪表盘展示官方事件与市场结构压力之间的解释性对齐。它们不被表述为交易信号或因果证明。",
+    "System Design": "系统设计",
+    "Screenshots": "截图",
+    "Template selection": "模板选择",
+    "Starting structures for exams, skills, projects, papers, and habits.": "用于考试、技能、项目、论文和习惯的起始结构。",
+    "Template preview": "模板预览",
+    "Milestones and editable steps before creating the goal.": "创建目标前的里程碑和可编辑步骤。",
+    "Today dashboard": "Today 仪表盘",
+    "Current goal, progress, next action, focus entry, and scheduling shortcut.": "当前目标、进度、下一步行动、专注入口和排程快捷方式。",
+    "Task detail": "任务详情",
+    "Progress insight, scheduling state, and execution controls.": "进度洞察、排程状态和执行控制。",
+    "Focus timer": "专注计时器",
+    "Focused execution bound to a specific next action.": "绑定到具体下一步行动的专注执行。",
+    "Weekly review": "周回顾",
+    "Reflection layer for completed tasks, focus time, active days, and status.": "用于总结完成任务、专注时间、活跃天数和状态的回顾层。",
+    "iOS Product System": "iOS 产品系统",
+    "Built as a SwiftUI app with Today, Plan, Done, and Settings surfaces. The interface is optimized for repeated daily execution rather than long planning sessions.": "作为 SwiftUI 应用构建，包含 Today、Plan、Done 和 Settings 界面。界面优化重点是重复的日常执行，而不是长时间规划。",
+    "Execution Logic": "执行逻辑",
+    "V2.0 uses deterministic templates, next-action ranking, status calculation, focus logging, advisory adjustment, and weekly review instead of network-based AI generation.": "V2.0 使用确定性模板、下一步行动排序、状态计算、专注记录、建议式调整和周回顾，而不是基于网络的 AI 生成。",
+    "Data Model": "数据模型",
+    "A hierarchical TaskItem model represents root goals, milestones, and steps. Progress combines weighted task completion with time-based expected progress.": "层级化 TaskItem 模型表示根目标、里程碑和步骤。进度结合了加权任务完成度与基于时间的预期进度。",
+    "Current V2.0 behavior and next development direction.": "当前 V2.0 行为与下一步开发方向。",
+    "Platform": "平台"
+  }));
+
+  const placeholderZh = new Map(Object.entries({
+    "Your name": "你的姓名",
+    "your@email.com": "your@email.com",
+    "What would you like to test or learn about Strata?": "你想测试或了解 Strata 的哪些部分？"
+  }));
+
+  const textSelector = "a, button, h1, h2, h3, p, span, strong, small, figcaption, li, th, td, label, footer";
+  const SKIP_SELECTOR = "script, style, svg, code, iframe, input, textarea";
+
+  const normalize = (value) => value.replace(/\s+/g, " ").trim();
+
+  function translateElement(element, lang) {
+    if (element.matches(SKIP_SELECTOR) || element.closest(SKIP_SELECTOR)) return;
+    if (element.children.length > 0) return;
+    const original = element.dataset.i18nOriginal || normalize(element.textContent);
+    if (!original) return;
+    element.dataset.i18nOriginal = original;
+    element.textContent = lang === "zh" ? zh.get(original) || original : original;
+  }
+
+  function translateHtmlBlock(element, lang) {
+    const original = element.dataset.i18nOriginalHtml || element.innerHTML;
+    element.dataset.i18nOriginalHtml = original;
+    const normalized = normalize(element.textContent);
+    element.innerHTML = lang === "zh" ? zh.get(normalized) || original : original;
+  }
+
+  function translateTextNodes(lang) {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach((node) => {
+      const parent = node.parentElement;
+      if (!parent) return;
+      if (parent.matches(SKIP_SELECTOR) || parent.closest(SKIP_SELECTOR)) return;
+      if (parent.closest("[data-i18n-html]")) return;
+      if (parent.children.length === 0) return;
+
+      const raw = node.nodeValue;
+      const original = node.__i18nOriginal || normalize(raw);
+      if (!original) return;
+      node.__i18nOriginal = original;
+
+      const replacement = lang === "zh" ? zh.get(original) || original : original;
+      const leading = raw.match(/^\s*/)?.[0] || "";
+      const trailing = raw.match(/\s*$/)?.[0] || "";
+      node.nodeValue = `${leading}${replacement}${trailing}`;
+    });
+  }
+
+  function applyLanguage(lang) {
+    document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
+    document.querySelectorAll("[data-i18n-html]").forEach((element) => translateHtmlBlock(element, lang));
+    document.querySelectorAll(textSelector).forEach((element) => translateElement(element, lang));
+    translateTextNodes(lang);
+    document.querySelectorAll("input[placeholder], textarea[placeholder]").forEach((element) => {
+      const original = element.dataset.i18nPlaceholder || element.getAttribute("placeholder");
+      element.dataset.i18nPlaceholder = original;
+      element.setAttribute("placeholder", lang === "zh" ? placeholderZh.get(original) || original : original);
+    });
+    document.querySelectorAll(".language-toggle").forEach((button) => {
+      button.textContent = lang === "zh" ? "English" : "中文";
+      button.setAttribute("aria-label", lang === "zh" ? "Switch language to English" : "切换到中文");
+    });
+  }
+
+  function setLanguage(lang) {
+    localStorage.setItem("site-language", lang);
+    applyLanguage(lang);
+  }
+
+  function init() {
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get("lang");
+    if (requested === "en" || requested === "zh") {
+      localStorage.setItem("site-language", requested);
+    }
+    const saved = localStorage.getItem("site-language") || "en";
+    applyLanguage(saved);
+    document.querySelectorAll(".language-toggle").forEach((button) => {
+      button.addEventListener("click", () => {
+        const current = localStorage.getItem("site-language") || "en";
+        setLanguage(current === "zh" ? "en" : "zh");
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
